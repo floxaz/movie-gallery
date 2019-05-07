@@ -10,21 +10,38 @@ class Result extends React.Component {
         const result = await response.json();
         console.log(result);
         this.setState(() => ({
+            page: 1,
+            results: [],
             base_url: result.images.base_url,
-            size: result.images.poster_sizes[2]
+            size: result.images.poster_sizes[2],
+            scrolling: true
         }));
     };
 
     discover = async () => {
-        const response = await fetch(`${this.dbUrl}discover/movie?api_key=${this.state.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`);
+        const url = `${this.dbUrl}discover/movie?api_key=${this.state.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
+        const response = await fetch(url);
         const result = await response.json();
         console.log(result);
-        this.setState(() => ({ results: result.results }));
+        this.setState(prevState => ({ results: [ ...prevState.results, ...result.results ] }));
     };
 
     componentDidMount() {
         this.configuration()
-        .then(this.discover());
+        .then(this.discover())
+
+        window.addEventListener('scroll', () => {
+            const lastMovie = document.querySelector('.movie:last-child');
+            const lastMovieOffset = lastMovie.offsetTop + lastMovie.clientHeight;
+            const pageOffset = window.scrollY + window.innerHeight;
+            const bottomOffset = 50;
+            if(pageOffset > lastMovieOffset - bottomOffset && this.state.scrolling) {
+                console.log('you reached the bottom');
+                this.setState(prevState => ({ page: prevState.page + 1, scrolling: false }));
+                this.discover()
+                .then(this.setState(() => ({ scrolling: true })));
+            }
+        });
     };
 
     render() {
