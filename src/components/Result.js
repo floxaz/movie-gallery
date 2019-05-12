@@ -4,7 +4,10 @@ import Movie from './Movie';
 class Result extends React.Component {
     _isMounted = false;
     dbUrl = 'https://api.themoviedb.org/3/';
-    state = { key: '98138b2310ee9081572944e69a78f168' };
+    state = { 
+        key: '98138b2310ee9081572944e69a78f168',
+        scrolling: false
+    };
 
     configuration = async () => {
         const response = await fetch(`${this.dbUrl}configuration?api_key=${this.state.key}`);
@@ -15,7 +18,6 @@ class Result extends React.Component {
             results: [],
             base_url: result.images.base_url,
             size: result.images.poster_sizes[2],
-            scrolling: false
         }));
     };
 
@@ -25,19 +27,17 @@ class Result extends React.Component {
             .then(this.discover())
 
         window.addEventListener('scroll', () => {
-            if(this.state.scrolling) return;
+            if (this.state.scrolling) return;
             const lastMovie = document.querySelector('.movie:last-child');
             const lastMovieOffset = lastMovie.offsetTop + lastMovie.clientHeight;
             const pageOffset = window.scrollY + window.innerHeight;
             const bottomOffset = 70;
-            if (pageOffset > lastMovieOffset - bottomOffset) {
-                if (this._isMounted) {
-                    this.setState(prevState => ({ 
-                        page: prevState.page + 1, 
-                        scrolling: true 
-                    }), 
-                    this.discover);
-                }
+            if (pageOffset > lastMovieOffset - bottomOffset && this._isMounted) {
+                this.setState(prevState => ({
+                    page: prevState.page + 1,
+                    scrolling: true
+                }),
+                this.discover);
             }
         });
     };
