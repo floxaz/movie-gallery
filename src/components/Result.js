@@ -1,16 +1,17 @@
 import React from 'react';
 import Movie from './Movie';
+import { connect } from 'react-redux';
 
 class Result extends React.Component {
     _isMounted = false;
     dbUrl = 'https://api.themoviedb.org/3/';
+    key = '98138b2310ee9081572944e69a78f168';
     state = { 
-        key: '98138b2310ee9081572944e69a78f168',
         scrolling: false
     };
 
     configuration = async () => {
-        const response = await fetch(`${this.dbUrl}configuration?api_key=${this.state.key}`);
+        const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
         const result = await response.json();
         console.log(result);
         this.setState(() => ({
@@ -47,7 +48,7 @@ class Result extends React.Component {
     }
 
     discover = async () => {
-        const url = `${this.dbUrl}discover/movie?api_key=${this.state.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
+        const url = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
         const response = await fetch(url);
         const result = await response.json();
         console.log(result);
@@ -57,6 +58,13 @@ class Result extends React.Component {
                 ...prevState.results, 
                 ...result.results 
             ]
+        }));
+    };
+
+    cleanResults = () => {
+        this.setState(() => ({
+            page: 1,
+            results: []
         }));
     };
 
@@ -76,4 +84,8 @@ class Result extends React.Component {
     };
 }
 
-export default Result;
+const mapStateToProps = state => ({
+    searchFor: state.query
+});
+
+export default connect(mapStateToProps)(Result);
