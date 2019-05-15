@@ -33,7 +33,7 @@ class Result extends React.Component {
             const lastMovieOffset = lastMovie.offsetTop + lastMovie.clientHeight;
             const pageOffset = window.scrollY + window.innerHeight;
             const bottomOffset = 70;
-            if (pageOffset > lastMovieOffset - bottomOffset && this._isMounted) {
+            if ((this._isMounted && pageOffset > lastMovieOffset - bottomOffset) && this.state.page < this.state.total_pages) {
                 this.setState(prevState => ({
                     page: prevState.page + 1,
                     scrolling: true
