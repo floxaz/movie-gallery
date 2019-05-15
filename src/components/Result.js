@@ -25,7 +25,7 @@ class Result extends React.Component {
     componentDidMount() {
         this._isMounted = true;
         this.configuration()
-            .then(this.discover())
+            .then(this.makeRequest())
 
         window.addEventListener('scroll', () => {
             if (this.state.scrolling) return;
@@ -38,22 +38,31 @@ class Result extends React.Component {
                     page: prevState.page + 1,
                     scrolling: true
                 }),
-                this.discover);
+                this.makeRequest);
             }
         });
     };
 
+    componentDidUpdate(prevProps) {
+        if(this.props.searchFor !== prevProps.searchFor) {
+            this.cleanResults();
+        }
+    };
+
     componentWillUnmount() {
         this._isMounted = false;
-    }
+    };
 
-    discover = async () => {
-        const url = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
+    makeRequest = async () => {
+        const discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
+        const searchMovieUrl = `${this.dbUrl}search/movie?api_key=${this.key}&language=en-US&query=${this.props.searchFor}&page=${this.state.page}&include_adult=false`
+        const url = this.props.searchFor ? searchMovieUrl : discoverUrl;
         const response = await fetch(url);
         const result = await response.json();
         console.log(result);
         this.setState(prevState => ({
             scrolling: false,
+            total_pages: result.total_pages,
             results: [ 
                 ...prevState.results, 
                 ...result.results 
@@ -65,7 +74,7 @@ class Result extends React.Component {
         this.setState(() => ({
             page: 1,
             results: []
-        }));
+        }), this.makeRequest);
     };
 
     render() {
