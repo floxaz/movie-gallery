@@ -11,7 +11,8 @@ export default () => (
          <Header />
          <Switch>
            <Route path="/" component={Result} exact />
-           <Route path="/genres" component={Genres} />
+           <Route path="/genres" component={Genres} exact />
+           <Route path="/genres/:genre" component={Result} />
            <Route component={PageNotFound} />
          </Switch>
        </React.Fragment>

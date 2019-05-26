@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import addGenres from '../actions/genres';
 
 class Genres extends React.Component {
@@ -23,7 +24,9 @@ class Genres extends React.Component {
       <div>
         {this.props.genres.length > 0 ? this.props.genres.map(genre => (
           <div key={genre.id}>
-            {genre.name}
+            <Link to={`${this.props.match.url}/${genre.name.toLowerCase()}`}>
+              {genre.name}
+            </Link>
           </div>
         )) : 'wait a second...'}
       </div>
