@@ -1,12 +1,14 @@
 import { createStore } from 'redux';
 
 export default () => {
-    const store = createStore((state = { query: '' }, action) => {
+    const store = createStore((state = { query: '', genres: [] }, action) => {
         switch (action.type) {
             case 'SEARCH':
                 if (action.query !== state.query) {
                     return { query: action.query };
                 }
+            case 'GENRES':
+                return { genres: action.genres };
             default:
                 return state;
         }
