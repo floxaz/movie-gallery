@@ -19,13 +19,12 @@ class Result extends React.Component {
             results: [],
             base_url: result.images.base_url,
             size: result.images.poster_sizes[2],
-        }));
+        }), this.makeRequest);
     };
 
     componentDidMount() {
         this._isMounted = true;
-        this.configuration()
-            .then(this.makeRequest())
+        this.configuration();
 
         window.addEventListener('scroll', () => {
             if (this.state.scrolling) return;
@@ -60,14 +59,16 @@ class Result extends React.Component {
         const response = await fetch(url);
         const result = await response.json();
         console.log(result);
-        this.setState(prevState => ({
-            scrolling: false,
-            total_pages: result.total_pages,
-            results: [ 
-                ...prevState.results, 
-                ...result.results 
-            ]
-        }));
+        if (this._isMounted) {
+            this.setState(prevState => ({
+                scrolling: false,
+                total_pages: result.total_pages,
+                results: [
+                    ...prevState.results,
+                    ...result.results
+                ]
+            }));
+        }
     };
 
     cleanResults = () => {

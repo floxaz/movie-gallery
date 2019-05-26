@@ -5,7 +5,7 @@ import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
-console.log(store);
+
 const jsx = (
     <Provider store={store}>
       <AppRouter />
