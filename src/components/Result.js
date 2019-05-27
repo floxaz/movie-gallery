@@ -6,7 +6,9 @@ class Result extends React.Component {
     _isMounted = false;
     dbUrl = 'https://api.themoviedb.org/3/';
     key = '98138b2310ee9081572944e69a78f168';
-    state = { 
+    state = {
+        page: 1,
+        results: [],
         scrolling: false
     };
 
@@ -15,8 +17,6 @@ class Result extends React.Component {
         const result = await response.json();
         console.log(result);
         this.setState(() => ({
-            page: 1,
-            results: [],
             base_url: result.images.base_url,
             size: result.images.poster_sizes[2],
         }), this.makeRequest);
