@@ -1,6 +1,7 @@
 import React from 'react';
 import Movie from './Movie';
 import { connect } from 'react-redux';
+import uuidv4 from 'uuid/v4';
 
 class Result extends React.Component {
     _isMounted = false;
@@ -84,9 +85,9 @@ class Result extends React.Component {
                 {this.state.results && this.state.results.map(movie => (
                     <Movie
                         title={movie.title}
-                        img={movie.poster_path ? `${this.state.base_url}${this.state.size}${movie.poster_path}` : './images/no-poster.jpg'}
+                        img={movie.poster_path ? `${this.state.base_url}${this.state.size}${movie.poster_path}` : '/images/no-poster.jpg'}
                         vote_average={movie.vote_average}
-                        key={movie.id}
+                        key={uuidv4()}
                     />
                 ))}
             </div>
