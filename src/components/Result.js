@@ -13,16 +13,6 @@ class Result extends React.Component {
         scrolling: false
     };
 
-    configuration = async () => {
-        const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
-        const result = await response.json();
-        console.log(result);
-        this.setState(() => ({
-            base_url: result.images.base_url,
-            size: result.images.poster_sizes[2],
-        }), this.makeRequest);
-    };
-
     componentDidMount() {
         this._isMounted = true;
         this.configuration();
@@ -53,10 +43,21 @@ class Result extends React.Component {
         this._isMounted = false;
     };
 
+    configuration = async () => {
+        const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
+        const result = await response.json();
+        console.log(result);
+        this.setState(() => ({
+            base_url: result.images.base_url,
+            size: result.images.poster_sizes[2],
+        }), this.makeRequest);
+    };
+
     makeRequest = async () => {
-        const discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
+        const discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}${this.props.chosenGenre && `&with_genres=${this.props.chosenGenre}`}`;
         const searchMovieUrl = `${this.dbUrl}search/movie?api_key=${this.key}&language=en-US&query=${this.props.searchFor}&page=${this.state.page}&include_adult=false`
         const url = this.props.searchFor ? searchMovieUrl : discoverUrl;
+        console.log(url);
         const response = await fetch(url);
         const result = await response.json();
         console.log(result);
@@ -96,7 +97,8 @@ class Result extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    searchFor: state.query
+    searchFor: state.query,
+    chosenGenre: state.genres.chosenGenre
 });
 
 export default connect(mapStateToProps)(Result);

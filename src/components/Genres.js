@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import addGenres from '../actions/genres';
+import { addGenres } from '../actions/genres';
+import { chooseGenre } from '../actions/genres';
 
 class Genres extends React.Component {
   dbUrl = 'https://api.themoviedb.org/3/';
@@ -19,11 +20,16 @@ class Genres extends React.Component {
     }
   }
 
+  handleGenreClick = e => {
+    e.persist();
+    this.props.chooseGenre(e.target.parentElement.id);
+  }
+
   render() {
     return (
-      <div>
+      <div onClick={this.handleGenreClick}>
         {this.props.genres.length > 0 ? this.props.genres.map(genre => (
-          <div key={genre.id}>
+          <div key={genre.id} id={genre.id}>
             <Link to={`${this.props.match.url}/${genre.name.toLowerCase()}`}>
               {genre.name}
             </Link>
@@ -35,11 +41,12 @@ class Genres extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  genres: state.genres
+  genres: state.genres.genreOptions
 });
 
 const mapDispatchToProps = dispatch => ({
-  addGenres: genres => dispatch(addGenres(genres))
+  addGenres: genres => dispatch(addGenres(genres)),
+  chooseGenre: genre => dispatch(chooseGenre(genre))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);
