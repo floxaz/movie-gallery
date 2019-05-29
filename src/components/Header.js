@@ -2,14 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 import { removeChosenGenre } from '../actions/genres';
+import { userWentHome } from '../actions/home';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const Header = ({ chosenGenre, removeChosenGenre }) => {
-    const handleOnHomeClick = e => {
-        if(chosenGenre) {
+const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, history }) => {
+    const handleOnHomeClick = () => {
+        if(location.pathname !== '/') {
+            userWentHome();
+        }
+
+        if (chosenGenre) {
             removeChosenGenre();
         }
     }
+
     return (
         <header>
             <div onClick={handleOnHomeClick}>
@@ -18,17 +25,18 @@ const Header = ({ chosenGenre, removeChosenGenre }) => {
             <div>
                 <Link to="/genres">Genres</Link>
             </div>
-            <Search />
+            <Search location={location} history={history} />
         </header>
     )
 }
 
-const mapStateToProps = state => ({
-    chosenGenre: state.genres.chosenGenre
+const mapStateToProps = ({ genres }) => ({
+    chosenGenre: genres.chosenGenre
 });
 
 const mapDispatchToProps = dispatch => ({
-    removeChosenGenre: () => dispatch(removeChosenGenre())
+    removeChosenGenre: () => dispatch(removeChosenGenre()),
+    userWentHome: () => dispatch(userWentHome())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

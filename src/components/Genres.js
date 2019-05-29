@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addGenres } from '../actions/genres';
 import { chooseGenre } from '../actions/genres';
+import { userClickedGenres } from '../actions/home';
 
 class Genres extends React.Component {
   dbUrl = 'https://api.themoviedb.org/3/';
@@ -17,6 +18,9 @@ class Genres extends React.Component {
   componentDidMount() {
     if(this.props.genres.length === 0) {
       this.configuration();
+    }
+    if(this.props.userAtHomePage) {
+      this.props.userClickedGenres();
     }
   }
 
@@ -41,12 +45,14 @@ class Genres extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  genres: state.genres.genreOptions
+  genres: state.genres.genreOptions,
+  userAtHomePage: state.home.userAtHomePage
 });
 
 const mapDispatchToProps = dispatch => ({
   addGenres: genres => dispatch(addGenres(genres)),
-  chooseGenre: genre => dispatch(chooseGenre(genre))
+  chooseGenre: genre => dispatch(chooseGenre(genre)),
+  userClickedGenres: () => dispatch(userClickedGenres())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);

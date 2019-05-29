@@ -1,5 +1,6 @@
 import React from 'react';
 import Movie from './Movie';
+import { userWentHome } from '../actions/home';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -28,13 +29,17 @@ class Result extends React.Component {
                     page: prevState.page + 1,
                     scrolling: true
                 }),
-                this.makeRequest);
+                    this.makeRequest);
             }
         });
     };
 
     componentDidUpdate(prevProps) {
-        if(this.props.searchFor !== prevProps.searchFor) {
+        if (this.props.searchFor !== prevProps.searchFor) {
+            this.cleanResults();
+        }
+
+        if ((this.props.userAtHomePage && this.props.userAtHomePage !== prevProps.userAtHomePage) && this.props.location.pathname === '/') {
             this.cleanResults();
         }
     };
@@ -46,7 +51,6 @@ class Result extends React.Component {
     configuration = async () => {
         const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
         const result = await response.json();
-        console.log(result);
         this.setState(() => ({
             base_url: result.images.base_url,
             size: result.images.poster_sizes[2],
@@ -54,13 +58,15 @@ class Result extends React.Component {
     };
 
     makeRequest = async () => {
-        const discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}${this.props.chosenGenre && `&with_genres=${this.props.chosenGenre}`}`;
-        const searchMovieUrl = `${this.dbUrl}search/movie?api_key=${this.key}&language=en-US&query=${this.props.searchFor}&page=${this.state.page}&include_adult=false`
+        const withGenres = `&with_genres=${this.props.chosenGenre}`;
+        let discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
+        const searchMovieUrl = `${this.dbUrl}search/movie?api_key=${this.key}&language=en-US&query=${this.props.searchFor}&page=${this.state.page}&include_adult=false`;
+        if (this.props.chosenGenre) {
+            discoverUrl += withGenres;
+        }
         const url = this.props.searchFor ? searchMovieUrl : discoverUrl;
-        console.log(url);
         const response = await fetch(url);
         const result = await response.json();
-        console.log(result);
         if (this._isMounted) {
             this.setState(prevState => ({
                 scrolling: false,
@@ -98,7 +104,12 @@ class Result extends React.Component {
 
 const mapStateToProps = state => ({
     searchFor: state.query,
-    chosenGenre: state.genres.chosenGenre
+    chosenGenre: state.genres.chosenGenre,
+    userAtHomePage: state.home.userAtHomePage
 });
 
-export default connect(mapStateToProps)(Result);
+const mapDispatchToProps = dispatch => ({
+    userWentHome: () => dispatch(userWentHome())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Result);

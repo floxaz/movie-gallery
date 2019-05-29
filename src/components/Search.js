@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import searchMovie from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 
-const Search = ({ searchMovie, history, chosenGenre, removeChosenGenre }) => {
+const Search = ({ searchMovie, location, history, chosenGenre, removeChosenGenre }) => {
     const handleSubmit = e => {
         e.preventDefault();
         const query = e.target.search.value;
@@ -12,7 +11,7 @@ const Search = ({ searchMovie, history, chosenGenre, removeChosenGenre }) => {
             removeChosenGenre();
         }
         searchMovie(query);
-        if(history.location.pathname !== '/') {
+        if(location.pathname !== '/') {
             history.push('/');
         }
     }
@@ -33,4 +32,4 @@ const mapDispatchToProps = dispatch => ({
     removeChosenGenre: () => dispatch(removeChosenGenre())
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
