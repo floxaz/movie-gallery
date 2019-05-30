@@ -3,27 +3,31 @@ import { connect } from 'react-redux';
 import { searchMovie } from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 
-const Search = ({ searchMovie, location, history, chosenGenre, removeChosenGenre }) => {
-    const handleSubmit = e => {
+class Search extends React.Component {
+    handleSubmit = e => {
         e.preventDefault();
-        const query = e.target.search.value;
-        if(chosenGenre) {
-            removeChosenGenre();
+        const search = e.target.search.value;
+        if(this.props.chosenGenre) {
+            this.props.removeChosenGenre();
         }
-        searchMovie(query);
-        if(location.pathname !== '/') {
-            history.push('/');
+        this.props.searchMovie(search);
+        localStorage.setItem('search', search);
+        if(this.props.location.pathname !== '/') {
+            this.props.history.push('/');
         }
     }
-    return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="search" placeholder="search movies" />
-            <button>ok</button>
-        </form>
-    )
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" name="search" placeholder="search movies" />
+                <button>ok</button>
+            </form>
+        )
+    }
 };
 
 const mapStateToProps = state => ({
+    query: state.query,
     chosenGenre: state.genres.chosenGenre
 });
 

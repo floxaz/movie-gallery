@@ -7,7 +7,7 @@ const initialState = {
 
 const genresReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GENRES':
+        case 'ADD_GENRES':
             return {
                 ...state,
                 genreOptions: [...action.genres]

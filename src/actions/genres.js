@@ -1,5 +1,5 @@
 export const addGenres = (genres = []) => ({
-    type: 'GENRES',
+    type: 'ADD_GENRES',
     genres
 });
 

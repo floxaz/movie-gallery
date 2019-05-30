@@ -3,6 +3,7 @@ import Movie from './Movie';
 import { userWentHome } from '../actions/home';
 import { userLeftHome } from '../actions/home';
 import { selectGenre } from '../actions/genres';
+import { searchMovie } from '../actions/searchMovie';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -21,6 +22,9 @@ class Result extends React.Component {
         if(!this.props.chosenGenre && location.pathname !== '/') {
             this.genreFromLocalStorage();
             this.props.userLeftHome();
+        }
+        if(location.pathname === '/') {
+            this.searchFromLocalStorage();
         }
         this.configuration();
 
@@ -97,6 +101,13 @@ class Result extends React.Component {
         this.props.selectGenre(retrievedGenre);
     }
 
+    searchFromLocalStorage = () => {
+        const query = localStorage.getItem('search');
+        if(query) {
+            this.props.searchMovie(query);
+        }
+    }
+
     render() {
         return (
             <div>
@@ -122,7 +133,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     userWentHome: () => dispatch(userWentHome()),
     userLeftHome: () => dispatch(userLeftHome()),
-    selectGenre: chosenGenre => dispatch(selectGenre(chosenGenre))
+    selectGenre: chosenGenre => dispatch(selectGenre(chosenGenre)),
+    searchMovie: query => dispatch(searchMovie(query))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Result);

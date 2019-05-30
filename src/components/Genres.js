@@ -17,7 +17,6 @@ class Genres extends React.Component {
   }
 
   componentDidMount() {
-    console.log('kek');
     if(this.props.genres.length === 0) {
       this.configuration();
     }
@@ -26,13 +25,13 @@ class Genres extends React.Component {
     }
     if(this.props.query) {
       this.props.removeSearch();
+      localStorage.setItem('search', '');
     }
   }
 
   handleGenreClick = e => {
     e.persist();
     this.props.selectGenre(e.target.parentElement.id);
-    console.log(typeof e.target.parentElement.id, e.target.parentElement.id);
     localStorage.setItem('chosenGenre', e.target.parentElement.id);
   }
 
