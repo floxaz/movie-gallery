@@ -4,7 +4,7 @@ const initialState = {
 
 const homeReducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'USER_CLICKED_GENRES':
+        case 'USER_LEFT_HOME':
             return {
                 userAtHomePage: false
             }

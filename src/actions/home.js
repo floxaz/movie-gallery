@@ -1,5 +1,5 @@
-export const userClickedGenres = () => ({
-    type: 'USER_CLICKED_GENRES'
+export const userLeftHome = () => ({
+    type: 'USER_LEFT_HOME'
 });
 
 export const userWentHome = () => {

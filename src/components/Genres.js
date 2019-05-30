@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addGenres } from '../actions/genres';
-import { chooseGenre } from '../actions/genres';
-import { userClickedGenres } from '../actions/home';
+import { selectGenre } from '../actions/genres';
+import { userLeftHome } from '../actions/home';
 import { removeSearch } from '../actions/searchMovie';
 
 class Genres extends React.Component {
@@ -22,7 +22,7 @@ class Genres extends React.Component {
       this.configuration();
     }
     if(this.props.userAtHomePage) {
-      this.props.userClickedGenres();
+      this.props.userLeftHome();
     }
     if(this.props.query) {
       this.props.removeSearch();
@@ -31,7 +31,9 @@ class Genres extends React.Component {
 
   handleGenreClick = e => {
     e.persist();
-    this.props.chooseGenre(e.target.parentElement.id);
+    this.props.selectGenre(e.target.parentElement.id);
+    console.log(typeof e.target.parentElement.id, e.target.parentElement.id);
+    localStorage.setItem('chosenGenre', e.target.parentElement.id);
   }
 
   render() {
@@ -57,8 +59,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addGenres: genres => dispatch(addGenres(genres)),
-  chooseGenre: genre => dispatch(chooseGenre(genre)),
-  userClickedGenres: () => dispatch(userClickedGenres()),
+  selectGenre: genre => dispatch(selectGenre(genre)),
+  userLeftHome: () => dispatch(userLeftHome()),
   removeSearch: () => dispatch(removeSearch())
 });
 

@@ -13,10 +13,10 @@ const genresReducer = (state = initialState, action) => {
                 genreOptions: [...action.genres]
             };
         case 'CHOOSE_GENRE':
-            if (action.genreID !== state.chosenGenre) {
+            if (action.chosenGenre !== state.chosenGenre) {
                 return {
                     ...state,
-                    chosenGenre: action.genreID
+                    chosenGenre: action.chosenGenre
                 }
             }
         case 'REMOVE_CHOSEN_GENRE':

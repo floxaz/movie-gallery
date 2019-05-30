@@ -1,6 +1,8 @@
 import React from 'react';
 import Movie from './Movie';
 import { userWentHome } from '../actions/home';
+import { userLeftHome } from '../actions/home';
+import { selectGenre } from '../actions/genres';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -16,6 +18,10 @@ class Result extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
+        if(!this.props.chosenGenre && location.pathname !== '/') {
+            this.genreFromLocalStorage();
+            this.props.userLeftHome();
+        }
         this.configuration();
 
         window.addEventListener('scroll', () => {
@@ -86,6 +92,11 @@ class Result extends React.Component {
         }), this.makeRequest);
     };
 
+    genreFromLocalStorage = () => {
+        const retrievedGenre = localStorage.getItem('chosenGenre');
+        this.props.selectGenre(retrievedGenre);
+    }
+
     render() {
         return (
             <div>
@@ -109,7 +120,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    userWentHome: () => dispatch(userWentHome())
+    userWentHome: () => dispatch(userWentHome()),
+    userLeftHome: () => dispatch(userLeftHome()),
+    selectGenre: chosenGenre => dispatch(selectGenre(chosenGenre))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Result);

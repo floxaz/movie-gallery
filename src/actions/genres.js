@@ -1,12 +1,12 @@
-export const addGenres = ( genres = []) => ({
+export const addGenres = (genres = []) => ({
     type: 'GENRES',
     genres
 });
 
-export const chooseGenre = (genreID = undefined) => ({
+export const selectGenre = chosenGenre => ({
     type: 'CHOOSE_GENRE',
-    genreID
-});
+    chosenGenre
+})
 
 export const removeChosenGenre = () => ({
     type: 'REMOVE_CHOSEN_GENRE'
