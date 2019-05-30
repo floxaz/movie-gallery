@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { addGenres } from '../actions/genres';
 import { chooseGenre } from '../actions/genres';
 import { userClickedGenres } from '../actions/home';
+import { removeSearch } from '../actions/searchMovie';
 
 class Genres extends React.Component {
   dbUrl = 'https://api.themoviedb.org/3/';
@@ -16,11 +17,15 @@ class Genres extends React.Component {
   }
 
   componentDidMount() {
+    console.log('kek');
     if(this.props.genres.length === 0) {
       this.configuration();
     }
     if(this.props.userAtHomePage) {
       this.props.userClickedGenres();
+    }
+    if(this.props.query) {
+      this.props.removeSearch();
     }
   }
 
@@ -46,13 +51,15 @@ class Genres extends React.Component {
 
 const mapStateToProps = state => ({
   genres: state.genres.genreOptions,
-  userAtHomePage: state.home.userAtHomePage
+  userAtHomePage: state.home.userAtHomePage,
+  query: state.query
 });
 
 const mapDispatchToProps = dispatch => ({
   addGenres: genres => dispatch(addGenres(genres)),
   chooseGenre: genre => dispatch(chooseGenre(genre)),
-  userClickedGenres: () => dispatch(userClickedGenres())
+  userClickedGenres: () => dispatch(userClickedGenres()),
+  removeSearch: () => dispatch(removeSearch())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);

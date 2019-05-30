@@ -1,6 +1,8 @@
-const searchMovie = (query = '') => ({
+export const searchMovie = (query = '') => ({
     type: 'SEARCH',
     query
 });
 
-export default searchMovie;
+export const removeSearch = () => ({
+    type: 'REMOVE_SEARCH'
+});

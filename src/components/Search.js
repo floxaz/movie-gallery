@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import searchMovie from '../actions/searchMovie';
+import { searchMovie } from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 
 const Search = ({ searchMovie, location, history, chosenGenre, removeChosenGenre }) => {

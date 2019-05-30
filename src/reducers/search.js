@@ -6,6 +6,8 @@ const searchReducer = (state = '', action) => {
             if (action.query !== state) {
                 return action.query;
             }
+        case 'REMOVE_SEARCH':
+            return '';
         default:
             return state;
     }
