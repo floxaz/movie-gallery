@@ -4,6 +4,7 @@ import { userWentHome } from '../actions/home';
 import { userLeftHome } from '../actions/home';
 import { selectGenre } from '../actions/genres';
 import { searchMovie } from '../actions/searchMovie';
+import { gotQueryFromStorage } from '../actions/searchMovie';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -14,7 +15,8 @@ class Result extends React.Component {
     state = {
         page: 1,
         results: [],
-        scrolling: false
+        scrolling: false,
+        //queryFromLocalStorage: false
     };
 
     componentDidMount() {
@@ -24,6 +26,8 @@ class Result extends React.Component {
             this.props.userLeftHome();
         }
         if(location.pathname === '/') {
+            //this.clearResultsOnly();
+            this.props.gotQueryFromStorage();
             this.searchFromLocalStorage();
         }
         this.configuration();
@@ -35,6 +39,7 @@ class Result extends React.Component {
             const pageOffset = window.scrollY + window.innerHeight;
             const bottomOffset = 70;
             if ((this._isMounted && pageOffset > lastMovieOffset - bottomOffset) && this.state.page < this.state.total_pages) {
+                console.log('triggered!');
                 this.setState(prevState => ({
                     page: prevState.page + 1,
                     scrolling: true
@@ -45,7 +50,7 @@ class Result extends React.Component {
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.searchFor !== prevProps.searchFor) {
+        if (this.props.searchFor !== prevProps.searchFor && !this.props.queryFromStorage) {
             this.cleanResults();
         }
 
@@ -96,6 +101,13 @@ class Result extends React.Component {
         }), this.makeRequest);
     };
 
+    clearResultsOnly = () => {
+        this.setState(() => ({
+            page: 1,
+            results: []
+        }));
+    };
+
     genreFromLocalStorage = () => {
         const retrievedGenre = localStorage.getItem('chosenGenre');
         this.props.selectGenre(retrievedGenre);
@@ -125,7 +137,8 @@ class Result extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    searchFor: state.query,
+    searchFor: state.search.query,
+    queryFromStorage: state.search.queryFromStorage,
     chosenGenre: state.genres.chosenGenre,
     userAtHomePage: state.home.userAtHomePage
 });
@@ -134,7 +147,8 @@ const mapDispatchToProps = dispatch => ({
     userWentHome: () => dispatch(userWentHome()),
     userLeftHome: () => dispatch(userLeftHome()),
     selectGenre: chosenGenre => dispatch(selectGenre(chosenGenre)),
-    searchMovie: query => dispatch(searchMovie(query))
+    searchMovie: query => dispatch(searchMovie(query)),
+    gotQueryFromStorage: () => dispatch(gotQueryFromStorage())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Result);

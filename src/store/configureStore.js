@@ -6,7 +6,7 @@ import homeReducer from '../reducers/home';
 export default () => {
     const store = createStore(
         combineReducers({
-            query: searchReducer,
+            search: searchReducer,
             genres: genresReducer,
             home: homeReducer
         }),

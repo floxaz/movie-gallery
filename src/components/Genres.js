@@ -53,7 +53,7 @@ class Genres extends React.Component {
 const mapStateToProps = state => ({
   genres: state.genres.genreOptions,
   userAtHomePage: state.home.userAtHomePage,
-  query: state.query
+  query: state.search.query
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,13 +1,34 @@
 // SEARCH REDUCER
 
-const searchReducer = (state = '', action) => {
+const initialState = {
+    query: '',
+    queryFromStorage: false
+};
+
+const searchReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SEARCH':
             if (action.query !== state) {
-                return action.query;
+                return {
+                    ...state,
+                    query: action.query
+                }
             }
         case 'REMOVE_SEARCH':
-            return '';
+            return {
+                ...state,
+                query: ''
+            };
+        case 'GOT_QUERY_FROM_STORAGE':
+            return {
+                ...state,
+                queryFromStorage: true
+            }
+        case 'CANCEL_QUERY_FROM_STORAGE':
+            return {
+                ...state,
+                queryFromStorage: false
+            }
         default:
             return state;
     }

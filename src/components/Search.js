@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { searchMovie } from '../actions/searchMovie';
+import { cancelQueryFromStorage } from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 
 class Search extends React.Component {
@@ -10,6 +11,7 @@ class Search extends React.Component {
         if(this.props.chosenGenre) {
             this.props.removeChosenGenre();
         }
+        this.props.cancelQueryFromStorage();
         this.props.searchMovie(search);
         localStorage.setItem('search', search);
         if(this.props.location.pathname !== '/') {
@@ -27,12 +29,14 @@ class Search extends React.Component {
 };
 
 const mapStateToProps = state => ({
-    query: state.query,
+    query: state.search.query,
+    queryFromStorage: state.search.queryFromStorage,
     chosenGenre: state.genres.chosenGenre
 });
 
 const mapDispatchToProps = dispatch => ({
     searchMovie: (query) => dispatch(searchMovie(query)),
+    cancelQueryFromStorage: () => dispatch(cancelQueryFromStorage()),
     removeChosenGenre: () => dispatch(removeChosenGenre())
 });
 
