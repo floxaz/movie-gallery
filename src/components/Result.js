@@ -15,8 +15,7 @@ class Result extends React.Component {
     state = {
         page: 1,
         results: [],
-        scrolling: false,
-        //queryFromLocalStorage: false
+        scrolling: false
     };
 
     componentDidMount() {
@@ -26,7 +25,6 @@ class Result extends React.Component {
             this.props.userLeftHome();
         }
         if(location.pathname === '/') {
-            //this.clearResultsOnly();
             this.props.gotQueryFromStorage();
             this.searchFromLocalStorage();
         }
@@ -39,7 +37,6 @@ class Result extends React.Component {
             const pageOffset = window.scrollY + window.innerHeight;
             const bottomOffset = 70;
             if ((this._isMounted && pageOffset > lastMovieOffset - bottomOffset) && this.state.page < this.state.total_pages) {
-                console.log('triggered!');
                 this.setState(prevState => ({
                     page: prevState.page + 1,
                     scrolling: true
@@ -99,13 +96,6 @@ class Result extends React.Component {
             page: 1,
             results: []
         }), this.makeRequest);
-    };
-
-    clearResultsOnly = () => {
-        this.setState(() => ({
-            page: 1,
-            results: []
-        }));
     };
 
     genreFromLocalStorage = () => {

@@ -8,7 +8,7 @@ const initialState = {
 const searchReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SEARCH':
-            if (action.query !== state) {
+            if (action.query !== state.query) {
                 return {
                     ...state,
                     query: action.query
