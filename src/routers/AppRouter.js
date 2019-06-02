@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from '../components/Header';
 import Result from '../components/Result';
 import Genres from '../components/Genres';
+import AboutMovie from '../components/AboutMovie';
 import PageNotFound from '../components/PageNotFound';
 
 export default () => (
@@ -11,6 +12,7 @@ export default () => (
          <Header />
          <Switch>
            <Route path="/" component={Result} exact />
+           <Route path="/movie-:movieid" component={AboutMovie} />
            <Route path="/genres" component={Genres} exact />
            <Route path="/genres/:genre" component={Result} />
            <Route component={PageNotFound} />

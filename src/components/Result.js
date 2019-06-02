@@ -30,20 +30,7 @@ class Result extends React.Component {
         }
         this.configuration();
 
-        window.addEventListener('scroll', () => {
-            if (this.state.scrolling) return;
-            const lastMovie = document.querySelector('.movie:last-child');
-            const lastMovieOffset = lastMovie.offsetTop + lastMovie.clientHeight;
-            const pageOffset = window.scrollY + window.innerHeight;
-            const bottomOffset = 70;
-            if ((this._isMounted && pageOffset > lastMovieOffset - bottomOffset) && this.state.page < this.state.total_pages) {
-                this.setState(prevState => ({
-                    page: prevState.page + 1,
-                    scrolling: true
-                }),
-                    this.makeRequest);
-            }
-        });
+        window.addEventListener('scroll', this.onScroll);
     };
 
     componentDidUpdate(prevProps) {
@@ -58,6 +45,7 @@ class Result extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
+        window.removeEventListener('scroll', this.onScroll);
     };
 
     configuration = async () => {
@@ -68,6 +56,21 @@ class Result extends React.Component {
             size: result.images.poster_sizes[2],
         }), this.makeRequest);
     };
+
+    onScroll = () => {
+        if (this.state.scrolling) return;
+        const lastMovie = document.querySelector('.movie:last-child');
+        const lastMovieOffset = lastMovie.offsetTop + lastMovie.clientHeight;
+        const pageOffset = window.scrollY + window.innerHeight;
+        const bottomOffset = 70;
+        if ((this._isMounted && pageOffset > lastMovieOffset - bottomOffset) && this.state.page < this.state.total_pages) {
+            this.setState(prevState => ({
+                page: prevState.page + 1,
+                scrolling: true
+            }),
+                this.makeRequest);
+        }
+    }
 
     makeRequest = async () => {
         const withGenres = `&with_genres=${this.props.chosenGenre}`;
@@ -128,6 +131,7 @@ class Result extends React.Component {
                         img={movie.poster_path ? `${this.state.base_url}${this.state.size}${movie.poster_path}` : '/images/no-poster.jpg'}
                         vote_average={movie.vote_average}
                         key={uuidv4()}
+                        id={movie.id}
                     />
                 ))}
             </div>
