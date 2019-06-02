@@ -14,6 +14,7 @@ class Genres extends React.Component {
     const response = await fetch(`${this.dbUrl}genre/movie/list?api_key=${this.key}&language=en-US`);
     const result = await response.json();
     this.props.addGenres(result.genres);
+    this.storageGenres(result.genres);
   }
 
   componentDidMount() {
@@ -33,6 +34,11 @@ class Genres extends React.Component {
     e.persist();
     this.props.selectGenre(e.target.parentElement.id);
     localStorage.setItem('chosenGenre', e.target.parentElement.id);
+  }
+
+  storageGenres = genres => {
+    const json = JSON.stringify(genres);
+    localStorage.setItem('genres', json);
   }
 
   render() {

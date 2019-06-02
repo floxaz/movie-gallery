@@ -10,7 +10,6 @@ class Search extends React.Component {
         value: '',
         gotValueFromStorage: false
     }
-
     
     componentDidUpdate(prevProps, prevState) {
         if(this.props.query !== prevState.value && !this.state.gotValueFromStorage) {
@@ -21,7 +20,6 @@ class Search extends React.Component {
         }
     }
     
-
     handleOnChange = e => {
         e.persist();
         this.setState(() => ({ value: e.target.value }));

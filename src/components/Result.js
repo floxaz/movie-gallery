@@ -21,7 +21,7 @@ class Result extends React.Component {
     componentDidMount() {
         this._isMounted = true;
         if(!this.props.chosenGenre && location.pathname !== '/') {
-            this.genreFromLocalStorage();
+            this.props.selectGenre(this.genreFromStorage());
             this.props.userLeftHome();
         }
         if(location.pathname === '/') {
@@ -98,9 +98,18 @@ class Result extends React.Component {
         }), this.makeRequest);
     };
 
-    genreFromLocalStorage = () => {
-        const retrievedGenre = localStorage.getItem('chosenGenre');
-        this.props.selectGenre(retrievedGenre);
+    genreFromStorage = () => {
+        const genres = JSON.parse(localStorage.getItem('genres'));
+        let genreUrl = this.props.location.pathname.split('/');
+        genreUrl = genreUrl[genreUrl.length - 1];
+        genreUrl = genreUrl.charAt(0).toUpperCase() + genreUrl.slice(1);
+        let chosenGenre = '';
+        genres.forEach(current => {
+            if(current.name === genreUrl) {
+                chosenGenre = current.id;
+            }
+        });
+        return chosenGenre;
     }
 
     searchFromLocalStorage = () => {
