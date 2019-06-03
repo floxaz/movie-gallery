@@ -1,6 +1,9 @@
 import React from 'react';
+import configure from '../actions/configuration';
+import { connect } from 'react-redux';
 
 class AboutMovie extends React.Component {
+    dbUrl = 'https://api.themoviedb.org/3/';
     key = '98138b2310ee9081572944e69a78f168';
     state = {
         title: undefined,
@@ -8,8 +11,23 @@ class AboutMovie extends React.Component {
         error: false
     }
     componentDidMount() {
-        const movieID = this.props.location.pathname.split('-')[1];
-        this.getMovieInfo(movieID);
+        let movieID = '';
+        if (Object.entries(this.props.settings).length === 0) {
+            this.configuration()
+                .then(() => {
+                    movieID = this.props.location.pathname.split('-')[1];
+                    this.getMovieInfo(movieID);
+                });
+        } else {
+            movieID = this.props.location.pathname.split('-')[1];
+            this.getMovieInfo(movieID);
+        }
+    }
+
+    configuration = async () => {
+        const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
+        const result = await response.json();
+        this.props.configure(result);
     }
 
     getMovieInfo = async id => {
@@ -48,4 +66,12 @@ class AboutMovie extends React.Component {
     };
 };
 
-export default AboutMovie;
+const mapStateToProps = ({ configuration }) => ({
+    settings: configuration
+});
+
+const mapDispatchToProps = dispatch => ({
+    configure: settigns => dispatch(configure(settigns))
+})
+  
+export default connect(mapStateToProps, mapDispatchToProps)(AboutMovie);

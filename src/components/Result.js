@@ -1,5 +1,6 @@
 import React from 'react';
 import Movie from './Movie';
+import configure from '../actions/configuration';
 import { userWentHome } from '../actions/home';
 import { userLeftHome } from '../actions/home';
 import { selectGenre } from '../actions/genres';
@@ -56,6 +57,9 @@ class Result extends React.Component {
             base_url: result.images.base_url,
             size: result.images.poster_sizes[2],
         }), this.makeRequest);
+        if(Object.entries(this.props.settings).length === 0) {
+            this.props.configure(result);
+        }
     };
 
     onScroll = () => {
@@ -141,6 +145,7 @@ class Result extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    settings: state.configuration,
     searchFor: state.search.query,
     queryFromStorage: state.search.queryFromStorage,
     chosenGenre: state.genres.chosenGenre,
@@ -148,6 +153,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    configure: settings => dispatch(configure(settings)),
     userWentHome: () => dispatch(userWentHome()),
     userLeftHome: () => dispatch(userLeftHome()),
     selectGenre: chosenGenre => dispatch(selectGenre(chosenGenre)),
