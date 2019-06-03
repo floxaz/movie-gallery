@@ -29,7 +29,12 @@ class Result extends React.Component {
             this.props.gotQueryFromStorage();
             this.searchFromLocalStorage();
         }
-        this.configuration();
+        if(Object.entries(this.props.settings).length !== 0) {
+            this.makeRequest();
+        } else {
+            this.configuration()
+            .then(this.makeRequest());
+        }
 
         window.addEventListener('scroll', this.onScroll);
     };
@@ -53,13 +58,7 @@ class Result extends React.Component {
         const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
         const result = await response.json();
         console.log(result);
-        this.setState(() => ({
-            base_url: result.images.base_url,
-            size: result.images.poster_sizes[2],
-        }), this.makeRequest);
-        if(Object.entries(this.props.settings).length === 0) {
-            this.props.configure(result);
-        }
+        this.props.configure(result);
     };
 
     onScroll = () => {
@@ -133,7 +132,7 @@ class Result extends React.Component {
                 {this.state.results && this.state.results.map(movie => (
                     <Movie
                         title={movie.title}
-                        img={movie.poster_path ? `${this.state.base_url}${this.state.size}${movie.poster_path}` : '/images/no-poster.jpg'}
+                        img={movie.poster_path ? `${this.props.settings.base_url}${this.props.settings.poster_sizes[2]}${movie.poster_path}` : '/images/no-poster.jpg'}
                         vote_average={movie.vote_average}
                         key={uuidv4()}
                         id={movie.id}

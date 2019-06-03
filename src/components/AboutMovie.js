@@ -11,15 +11,13 @@ class AboutMovie extends React.Component {
         error: false
     }
     componentDidMount() {
-        let movieID = '';
+        const movieID = this.props.location.pathname.split('-')[1];;
         if (Object.entries(this.props.settings).length === 0) {
             this.configuration()
                 .then(() => {
-                    movieID = this.props.location.pathname.split('-')[1];
                     this.getMovieInfo(movieID);
                 });
         } else {
-            movieID = this.props.location.pathname.split('-')[1];
             this.getMovieInfo(movieID);
         }
     }
