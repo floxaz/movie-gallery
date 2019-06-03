@@ -51,6 +51,7 @@ class Result extends React.Component {
     configuration = async () => {
         const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
         const result = await response.json();
+        console.log(result);
         this.setState(() => ({
             base_url: result.images.base_url,
             size: result.images.poster_sizes[2],
