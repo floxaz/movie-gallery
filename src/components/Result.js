@@ -21,19 +21,19 @@ class Result extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        if(!this.props.chosenGenre && location.pathname !== '/') {
+        if (!this.props.chosenGenre && location.pathname !== '/') {
             this.props.selectGenre(this.genreFromStorage());
             this.props.userLeftHome();
         }
-        if(location.pathname === '/') {
+        if (location.pathname === '/') {
             this.props.gotQueryFromStorage();
             this.searchFromLocalStorage();
         }
-        if(Object.entries(this.props.settings).length !== 0) {
+        if (Object.entries(this.props.settings).length !== 0) {
             this.makeRequest();
         } else {
             this.configuration()
-            .then(this.makeRequest());
+            .then(this.makeRequest);
         }
 
         window.addEventListener('scroll', this.onScroll);
@@ -57,7 +57,6 @@ class Result extends React.Component {
     configuration = async () => {
         const response = await fetch(`${this.dbUrl}configuration?api_key=${this.key}`);
         const result = await response.json();
-        console.log(result);
         this.props.configure(result);
     };
 
@@ -112,7 +111,7 @@ class Result extends React.Component {
         genreUrl = genreUrl.charAt(0).toUpperCase() + genreUrl.slice(1);
         let chosenGenre = '';
         genres.forEach(current => {
-            if(current.name === genreUrl) {
+            if (current.name === genreUrl) {
                 chosenGenre = current.id;
             }
         });
@@ -121,7 +120,7 @@ class Result extends React.Component {
 
     searchFromLocalStorage = () => {
         const query = localStorage.getItem('search');
-        if(query) {
+        if (query) {
             this.props.searchMovie(query);
         }
     }
