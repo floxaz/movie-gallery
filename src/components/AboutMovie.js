@@ -3,14 +3,14 @@ import configure from '../actions/configuration';
 import { connect } from 'react-redux';
 
 class AboutMovie extends React.Component {
+    _isMounted = false;
     dbUrl = 'https://api.themoviedb.org/3/';
     key = '98138b2310ee9081572944e69a78f168';
     state = {
-        title: undefined,
-        overview: undefined,
         error: false
     }
     componentDidMount() {
+        this._isMounted = true;
         const movieID = this.props.location.pathname.split('-')[1];;
         if (Object.entries(this.props.settings).length === 0) {
             this.configuration()
@@ -20,6 +20,10 @@ class AboutMovie extends React.Component {
         } else {
             this.getMovieInfo(movieID);
         }
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     configuration = async () => {
@@ -32,21 +36,46 @@ class AboutMovie extends React.Component {
         const result = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.key}&language=en-US`);
         const movieData = await result.json();
         console.log(movieData);
-        // if api call went well
-        if (!movieData.status_message) {
-            this.setState(() => ({
-                title: movieData.title,
-                overview: movieData.overview
-            }));
-        } else {
-            this.setState(() => ({ error: true }));
+        if (this._isMounted) {
+            // if api call went well
+            if (!movieData.status_message) {
+                this.setState(() => ({
+                    title: movieData.title,
+                    genres: movieData.genres,
+                    release: movieData.release_date,
+                    countries: movieData.production_countries,
+                    runtime: movieData.runtime,
+                    overview: movieData.overview,
+                    backdrop_path: movieData.backdrop_path
+                }));
+            } else {
+                this.setState(() => ({ error: true }));
+            }
         }
+    }
+
+    makeList = property => {
+        let list = '';
+        property.forEach((character, index) => {
+            if(index < property.length - 1) {
+                list += character.name + ', ';
+            } else {
+                list += character.name;
+            }
+        })
+
+        return list;
     }
 
     render() {
         const showFilm = (
             <div>
+            {this.state.backdrop_path && <img src={`${this.props.settings.base_url}${this.props.settings.backdrop_sizes[2]}${this.state.backdrop_path}`} />}
             {this.state.title && <h1>{this.state.title}</h1>}
+            {this.state.genres && <p>Genres: {this.makeList(this.state.genres)}</p>}
+            {this.state.release && <p>Release: {this.state.release}</p>}
+            {this.state.countries && <p>Country: {this.makeList(this.state.countries)}</p>}
+            {this.state.runtime && <p>Duration: {this.state.runtime} min</p>}
             {this.state.overview && <p>{this.state.overview}</p>}
             </div>
         );
