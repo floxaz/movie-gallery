@@ -18,14 +18,16 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
     }
 
     return (
-        <header>
-            <div onClick={handleOnHomeClick}>
-                <Link to="/">Home</Link>
+        <header className="header">
+            <div className="row row--flex">
+                <div onClick={handleOnHomeClick} className="header__item">
+                    <Link to="/" className="header__link">Home</Link>
+                </div>
+                <div className="header__item">
+                    <Link to="/genres" className="header__link">Genres</Link>
+                </div>
+                <Search location={location} history={history} />
             </div>
-            <div>
-                <Link to="/genres">Genres</Link>
-            </div>
-            <Search location={location} history={history} />
         </header>
     )
 }
