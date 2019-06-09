@@ -127,7 +127,7 @@ class Result extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="result">
                 {this.state.results && this.state.results.map(movie => (
                     <Movie
                         title={movie.title}
