@@ -128,15 +128,17 @@ class Result extends React.Component {
     render() {
         return (
             <div className="result">
-                {this.state.results && this.state.results.map(movie => (
-                    <Movie
-                        title={movie.title}
-                        img={movie.poster_path ? `${this.props.settings.base_url}${this.props.settings.poster_sizes[2]}${movie.poster_path}` : '/images/no-poster.jpg'}
-                        vote_average={movie.vote_average}
-                        key={uuidv4()}
-                        id={movie.id}
-                    />
-                ))}
+                <div className="result__container">
+                    {this.state.results && this.state.results.map(movie => (
+                        <Movie
+                            title={movie.title}
+                            img={movie.poster_path ? `${this.props.settings.base_url}${this.props.settings.poster_sizes[2]}${movie.poster_path}` : '/images/no-poster.jpg'}
+                            vote_average={movie.vote_average}
+                            key={uuidv4()}
+                            id={movie.id}
+                        />
+                    ))}
+                </div>
             </div>
         )
     };
