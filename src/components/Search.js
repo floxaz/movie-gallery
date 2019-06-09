@@ -41,9 +41,20 @@ class Search extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" name="search" placeholder="search movies" onChange={this.handleOnChange} value={this.state.value} />
-                <button>ok</button>
+            <form className="search" onSubmit={this.handleSubmit}>
+                <input
+                    className="search__input"
+                    type="text"
+                    name="search"
+                    placeholder="search movies"
+                    onChange={this.handleOnChange}
+                    value={this.state.value}
+                />
+                <button className="search__btn">
+                    <svg className="search__icon">
+                        <use xlinkHref="./images/sprite.svg#icon-search"></use>
+                  </svg>
+                </button>
             </form>
         )
     }
