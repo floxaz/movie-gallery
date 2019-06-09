@@ -4,19 +4,28 @@
     position: relative;
 
     &__input {
+        animation-name: autofill;
+        animation-fill-mode: both;
         background-color: $violet;
-        border: 1.5px solid rgba(#fff, .8);
+        border: 1.5px solid rgba(#fff, .6);
         border-radius: 100px;
-        color: rgba(#fff, .8);
+        color: rgba(#fff, .6);
         font-size: 1.6rem;
         height: 100%;
+        transition: all .4s ease;
         padding: .5rem;
         padding-left: 1rem;
         width: 22rem;
     }
 
     &__input:focus {
+        border: 1.5px solid #fff;
+        color: #fff;
         outline: none;
+    }
+
+    &__input:focus + &__btn &__icon {
+        fill: #fff;
     }
 
     &__btn {
@@ -36,6 +45,14 @@
     &__icon {
         width: 2rem;
         height: 2rem;
-        fill: rgba(#fff, .8);
+        fill: rgba(#fff, .6);
+        transition: all .4s;
+    }
+}
+
+@keyframes autofill {
+    to {
+        background-color: $violet;
+        color: #fff;
     }
 }
