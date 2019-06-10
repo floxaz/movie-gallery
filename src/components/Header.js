@@ -19,6 +19,11 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
 
     return (
         <header className="header">
+            <div className="header__box-arrow">
+              <svg className="header__arrow">
+                 <use xlinkHref="./images/sprite.svg#icon-arrow-left2"></use>
+              </svg>
+            </div>
             <div className="row row--flex">
                 <div onClick={handleOnHomeClick} className="header__item">
                     <Link to="/" className="header__link">Home</Link>

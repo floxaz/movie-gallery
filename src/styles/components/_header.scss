@@ -6,6 +6,22 @@
     width: 100%;
     z-index: 1000;
 
+    &__box-arrow {
+        background-color: transparent;
+        width: 3rem;
+        height: 3rem;
+        position: absolute;
+        top: 50%;
+        left: 2rem;
+        transform: translateY(-50%);
+    }
+
+    &__arrow {
+        fill: #fff;
+        width: 3rem;
+        height: 3rem;
+    }
+
     &__item {
         margin-right: 2rem;
         transition: all .2s ease;

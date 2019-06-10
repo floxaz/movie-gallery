@@ -17,9 +17,16 @@ body {
 .row {
     margin: 0 auto;
     max-width: 128rem;
+    padding: 0 7rem;
 }
 
 .row--flex {
     display: flex;
     align-items: center;
+}
+
+@media (min-width: $header-1) {
+    .row {
+        padding: 0;
+    } 
 }
