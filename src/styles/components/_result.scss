@@ -1,14 +1,89 @@
 .result {
+    background-color: $violet-light;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
+    //text-align: center;
 
     &__container {
-        background-color: $violet-light;
-        display: inline-flex;
+        display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         padding-top: 9rem;
+        width: 19.5rem;
+    }
+}
+
+// 2
+@media (min-width: $smal-desktop) {
+    .result__container {
+        width: 39rem;
+    }
+}
+// 3
+@media (min-width: $small-desktop) {
+    .result__container {
+        width: 58.5rem;
+    }
+}
+// 4
+@media (min-width: $desktop) {
+    .result__container {
+        width: 78rem;
+    }
+}
+// 5
+@media (min-width: $n-desktop) {
+    .result__container {
+        width: 97.5rem;
+    }
+}
+// 6
+@media (min-width: $no-desktop) {
+    .result__container {
+        width: 117rem;
+    }
+}
+// 7
+@media (min-width: $nor-desktop) {
+    .result__container {
+        width: 136.5rem;
+    }
+}
+// 8 
+@media (min-width: $norm-desktop) {
+    .result__container {
+        width: 156rem;
+    }
+}
+// 9
+@media (min-width: $normal-desktop) {
+    .result__container {
+        width: 175.5rem;
+    }
+}
+// 10
+@media (min-width: $medium-desktop) {
+    .result__container {
+        width: 195rem;
+    }
+}
+// 11
+@media (min-width: $big-desktop) {
+    .result__container {
+        width: 214.5rem;
+    }
+}
+// 12
+@media (min-width: $large-desktop) {
+    .result__container {
+        width: 234rem;
+    }
+}
+// 13
+@media (min-width: $huge-desktop) {
+    .result__container {
+        width: 253.5rem;
     }
 }

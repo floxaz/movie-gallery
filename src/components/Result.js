@@ -65,7 +65,7 @@ class Result extends React.Component {
         const lastMovie = document.querySelector('.movie:last-child');
         const lastMovieOffset = lastMovie.offsetTop + lastMovie.clientHeight;
         const pageOffset = window.scrollY + window.innerHeight;
-        const bottomOffset = 70;
+        const bottomOffset = 500;
         if ((this._isMounted && pageOffset > lastMovieOffset - bottomOffset) && this.state.page < this.state.total_pages) {
             this.setState(prevState => ({
                 page: prevState.page + 1,
