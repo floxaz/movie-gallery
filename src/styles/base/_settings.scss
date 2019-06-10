@@ -3,19 +3,17 @@ $violet: #261f30;
 $violet-light: #30273d;
 $green: #badc58;
 
-//
-//$desktop: 90em;
-$sma-desktop: 24.3125em; // 389
-$smal-desktop: 36.5em; // 584
-$small-desktop: 48.6875em; // 779
-$desktop: 60.875em; // 974
-$n-desktop: 73.0625em; // 1169
-$no-desktop: 85.25em; // 1364
+// Breakpoints
+$desktop-2: 36.5em; // 584
+$desktop-3: 48.6875em; // 779
+$desktop-4: 60.875em; // 974
+$desktop-5: 73.0625em; // 1169
+$desktop-6: 85.25em; // 1364
 $mac-desktop: 90em; // 1440;
-$nor-desktop: 97.4375em; // 1559
-$norm-desktop: 109.625em; // 1754
-$normal-desktop: 121.8125em; // 1949
-$medium-desktop: 134em; // 2144
-$big-desktop: 146.1875em; // 2339
-$large-desktop: 158.375em; // 2534
-$huge-desktop: 160em; // 2560
+$desktop-7: 97.4375em; // 1559
+$desktop-8: 109.625em; // 1754
+$desktop-9: 121.8125em; // 1949
+$desktop-10: 134em; // 2144
+$desktop-11: 146.1875em; // 2339
+$desktop-12: 158.375em; // 2534
+$desktop-13: 160em; // 2560
