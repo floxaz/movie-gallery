@@ -1,3 +1,4 @@
+
 .result {
     background-color: $violet-light;
     width: 100%;
@@ -45,6 +46,13 @@
         width: 117rem;
     }
 }
+
+@media (min-width: $mac-desktop) {
+    .result__container {
+        width: 136.5rem;
+    }
+}
+
 // 7
 @media (min-width: $nor-desktop) {
     .result__container {
@@ -81,7 +89,7 @@
         width: 234rem;
     }
 }
-// 13
+// 13 
 @media (min-width: $huge-desktop) {
     .result__container {
         width: 253.5rem;
