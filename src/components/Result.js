@@ -20,6 +20,7 @@ class Result extends React.Component {
     };
 
     componentDidMount() {
+        console.log('mounted');
         this._isMounted = true;
         if (!this.props.chosenGenre && location.pathname !== '/') {
             this.props.selectGenre(this.genreFromStorage());

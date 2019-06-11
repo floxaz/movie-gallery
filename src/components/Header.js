@@ -1,15 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Search from './Search';
+import { removeSearch } from '../actions/searchMovie';
+import { cancelQueryFromStorage } from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 import { userWentHome } from '../actions/home';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, history }) => {
+const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, history, search, removeSearch, queryFromStorage, cancelQueryFromStorage }) => {
     const handleOnHomeClick = () => {
         if(location.pathname !== '/') {
             userWentHome();
+        }
+        if(search) {
+            removeSearch();
+            localStorage.setItem('search', '');
+            if(queryFromStorage) {
+                cancelQueryFromStorage();
+            }
         }
 
         if (chosenGenre) {
@@ -37,11 +46,15 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
     )
 }
 
-const mapStateToProps = ({ genres }) => ({
+const mapStateToProps = ({ genres, search }) => ({
+    search: search.query,
+    queryFromStorage: search.queryFromStorage,
     chosenGenre: genres.chosenGenre
 });
 
 const mapDispatchToProps = dispatch => ({
+    removeSearch: () => dispatch(removeSearch()),
+    cancelQueryFromStorage: () => dispatch(cancelQueryFromStorage()),
     removeChosenGenre: () => dispatch(removeChosenGenre()),
     userWentHome: () => dispatch(userWentHome())
 });
