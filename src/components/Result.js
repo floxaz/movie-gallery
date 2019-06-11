@@ -24,7 +24,6 @@ class Result extends React.Component {
     };
 
     componentDidMount() {
-        console.log('mounted');
         this._isMounted = true;
         if(window.innerWidth <= 2144) {
             this.props.noLargeScreen();
@@ -52,14 +51,14 @@ class Result extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         
         if(this.props.isLargeScreen) {
-            if(this.props.doubleRequestMade !== prevState.doubleRequestMade && this.props.madeDoubleRequest === false) {
+            if(this.props.doubleRequestMade !== prevState.doubleRequestMade && this.props.doubleRequestMade === false) {
                 this.setState(() => ({ doubleRequestMade: this.props.madeDoubleRequest }));
-                //console.log(this.props.doubleRequestMade, prevState.doubleRequestMade);
-                //this.props.madeDoubleRequest();
+                this.props.makeDoubleRequest();
             }
         }
     
         if (this.props.searchFor !== prevProps.searchFor && !this.props.queryFromStorage) {
+            console.log('kek');
             this.cleanResults();
         }
 
