@@ -6,6 +6,9 @@ import { userLeftHome } from '../actions/home';
 import { selectGenre } from '../actions/genres';
 import { searchMovie } from '../actions/searchMovie';
 import { gotQueryFromStorage } from '../actions/searchMovie';
+import { largeScreen } from '../actions/request';
+import { noLargeScreen } from '../actions/request';
+import { makeDoubleRequest } from '../actions/request';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -16,12 +19,18 @@ class Result extends React.Component {
     state = {
         page: 1,
         results: [],
-        scrolling: false
+        scrolling: false,
+        doubleRequestMade: false
     };
 
     componentDidMount() {
         console.log('mounted');
         this._isMounted = true;
+        if(window.innerWidth <= 2144) {
+            this.props.noLargeScreen();
+        } else {
+            this.props.largeScreen();
+        }
         if (!this.props.chosenGenre && location.pathname !== '/') {
             this.props.selectGenre(this.genreFromStorage());
             this.props.userLeftHome();
@@ -40,7 +49,16 @@ class Result extends React.Component {
         window.addEventListener('scroll', this.onScroll);
     };
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
+        
+        if(this.props.isLargeScreen) {
+            if(this.props.doubleRequestMade !== prevState.doubleRequestMade && this.props.madeDoubleRequest === false) {
+                this.setState(() => ({ doubleRequestMade: this.props.madeDoubleRequest }));
+                //console.log(this.props.doubleRequestMade, prevState.doubleRequestMade);
+                //this.props.madeDoubleRequest();
+            }
+        }
+    
         if (this.props.searchFor !== prevProps.searchFor && !this.props.queryFromStorage) {
             this.cleanResults();
         }
@@ -77,6 +95,7 @@ class Result extends React.Component {
     }
 
     makeRequest = async () => {
+        console.log(this.state.page);
         const withGenres = `&with_genres=${this.props.chosenGenre}`;
         let discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
         const searchMovieUrl = `${this.dbUrl}search/movie?api_key=${this.key}&language=en-US&query=${this.props.searchFor}&page=${this.state.page}&include_adult=false`;
@@ -87,14 +106,30 @@ class Result extends React.Component {
         const response = await fetch(url);
         const result = await response.json();
         if (this._isMounted) {
-            this.setState(prevState => ({
-                scrolling: false,
-                total_pages: result.total_pages,
-                results: [
-                    ...prevState.results,
-                    ...result.results
-                ]
-            }));
+            if(!this.props.isLargeScreen || this.state.doubleRequestMade) {
+                this.setState(prevState => ({
+                    scrolling: false,
+                    total_pages: result.total_pages,
+                    results: [
+                        ...prevState.results,
+                        ...result.results
+                    ]
+                }));
+            } else {
+                if(!this.state.doubleRequestMade) {
+                    this.setState(prevState => ({
+                        scrolling: false,
+                        total_pages: result.total_pages,
+                        results: [
+                            ...prevState.results,
+                            ...result.results
+                        ]
+                    }), this.setState(prevState => ({
+                        page: prevState.page + 1,
+                        doubleRequestMade: true
+                    }), this.makeRequest));
+                }
+            }
         }
     };
 
@@ -150,7 +185,9 @@ const mapStateToProps = state => ({
     searchFor: state.search.query,
     queryFromStorage: state.search.queryFromStorage,
     chosenGenre: state.genres.chosenGenre,
-    userAtHomePage: state.home.userAtHomePage
+    userAtHomePage: state.home.userAtHomePage,
+    isLargeScreen: state.request.isLargeScreen,
+    doubleRequestMade: state.request.doubleRequestMade
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -159,7 +196,10 @@ const mapDispatchToProps = dispatch => ({
     userLeftHome: () => dispatch(userLeftHome()),
     selectGenre: chosenGenre => dispatch(selectGenre(chosenGenre)),
     searchMovie: query => dispatch(searchMovie(query)),
-    gotQueryFromStorage: () => dispatch(gotQueryFromStorage())
+    gotQueryFromStorage: () => dispatch(gotQueryFromStorage()),
+    largeScreen: () => dispatch(largeScreen()),
+    noLargeScreen: () => dispatch(noLargeScreen()),
+    makeDoubleRequest: () => dispatch(makeDoubleRequest())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Result);

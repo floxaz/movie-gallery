@@ -3,6 +3,7 @@ import searchReducer from '../reducers/search';
 import genresReducer from '../reducers/genres';
 import homeReducer from '../reducers/home';
 import configurationReducer from '../reducers/configuration';
+import requestReducer from '../reducers/request';
 
 export default () => {
     const store = createStore(
@@ -10,7 +11,8 @@ export default () => {
             configuration: configurationReducer,
             search: searchReducer,
             genres: genresReducer,
-            home: homeReducer
+            home: homeReducer,
+            request: requestReducer
         }),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );

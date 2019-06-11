@@ -5,13 +5,18 @@ import { removeSearch } from '../actions/searchMovie';
 import { cancelQueryFromStorage } from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 import { userWentHome } from '../actions/home';
+import { unmakeDoubleRequest } from '../actions/request'; 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, history, search, removeSearch, queryFromStorage, cancelQueryFromStorage }) => {
+const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, history, search, removeSearch, queryFromStorage, cancelQueryFromStorage, isLargeScreen, doubleRequestMade, unmakeDoubleRequest }) => {
     const handleOnHomeClick = () => {
         if(location.pathname !== '/') {
             userWentHome();
+        } else {
+            if(isLargeScreen) {
+                unmakeDoubleRequest();
+            }
         }
         if(search) {
             removeSearch();
@@ -19,6 +24,7 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
             if(queryFromStorage) {
                 cancelQueryFromStorage();
             }
+
         }
 
         if (chosenGenre) {
@@ -46,17 +52,20 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
     )
 }
 
-const mapStateToProps = ({ genres, search }) => ({
+const mapStateToProps = ({ genres, search, request }) => ({
     search: search.query,
     queryFromStorage: search.queryFromStorage,
-    chosenGenre: genres.chosenGenre
+    chosenGenre: genres.chosenGenre,
+    isLargeScreen: request.isLargeScreen,
+    doubleRequestMade: request.doubleRequestMade
 });
 
 const mapDispatchToProps = dispatch => ({
     removeSearch: () => dispatch(removeSearch()),
     cancelQueryFromStorage: () => dispatch(cancelQueryFromStorage()),
     removeChosenGenre: () => dispatch(removeChosenGenre()),
-    userWentHome: () => dispatch(userWentHome())
+    userWentHome: () => dispatch(userWentHome()),
+    unmakeDoubleRequest: () => dispatch(unmakeDoubleRequest())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
