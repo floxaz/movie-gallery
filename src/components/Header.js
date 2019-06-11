@@ -13,10 +13,9 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
     const handleOnHomeClick = () => {
         if(location.pathname !== '/') {
             userWentHome();
-        } else {
-            if(isLargeScreen) {
-                unmakeDoubleRequest();
-            }
+        }
+        if(isLargeScreen) {
+            unmakeDoubleRequest();
         }
         if(search) {
             removeSearch();

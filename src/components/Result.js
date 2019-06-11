@@ -94,7 +94,6 @@ class Result extends React.Component {
     }
 
     makeRequest = async () => {
-        console.log(this.state.page);
         const withGenres = `&with_genres=${this.props.chosenGenre}`;
         let discoverUrl = `${this.dbUrl}discover/movie?api_key=${this.key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}`;
         const searchMovieUrl = `${this.dbUrl}search/movie?api_key=${this.key}&language=en-US&query=${this.props.searchFor}&page=${this.state.page}&include_adult=false`;
