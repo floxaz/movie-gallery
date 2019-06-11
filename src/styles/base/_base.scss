@@ -14,6 +14,12 @@ body {
     font-size: 1.6rem;
 }
 
+html,
+body {
+    height: 100%;
+    background-color: #30273d;
+}
+
 .row {
     margin: 0 auto;
     max-width: 128rem;
