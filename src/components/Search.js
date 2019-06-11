@@ -6,34 +6,16 @@ import { gotQueryFromStorage } from '../actions/searchMovie';
 import { removeChosenGenre } from '../actions/genres';
 
 class Search extends React.Component {
-    state = {
-        value: '',
-        gotValueFromStorage: false
-    }
-    
-    componentDidUpdate(prevProps, prevState) {
-        if(this.props.query !== prevState.value && !this.state.gotValueFromStorage) {
-            this.setState(() => ({
-                value: this.props.query,
-                gotValueFromStorage: true
-            }))
-        }
-    }
-    
-    handleOnChange = e => {
-        e.persist();
-        this.setState(() => ({ value: e.target.value }));
-    };
 
     handleSubmit = e => {
         e.preventDefault();
-        this.setState(() => ({ gotValueFromStorage: false }));
         if(this.props.chosenGenre) {
             this.props.removeChosenGenre();
         }
         this.props.cancelQueryFromStorage();
-        this.props.searchMovie(this.state.value);
-        localStorage.setItem('search', this.state.value);
+        console.log('value', e.target.search.value);
+        this.props.searchMovie(e.target.search.value);
+        localStorage.setItem('search', e.target.search.value);
         if(this.props.location.pathname !== '/') {
             this.props.history.push('/');
         }
@@ -47,8 +29,6 @@ class Search extends React.Component {
                     type="text"
                     name="search"
                     placeholder="search movies"
-                    onChange={this.handleOnChange}
-                    value={this.state.value}
                 />
                 <button className="search__btn">
                     <svg className="search__icon">

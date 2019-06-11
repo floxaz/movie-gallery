@@ -16,51 +16,24 @@ class Result extends React.Component {
     state = {
         page: 1,
         results: [],
-        scrolling: false,
-        madeDoubleRequest: false
+        scrolling: false
     };
 
     componentDidMount() {
-        console.log(window.innerWidth);
         this._isMounted = true;
         if (!this.props.chosenGenre && location.pathname !== '/') {
             this.props.selectGenre(this.genreFromStorage());
             this.props.userLeftHome();
         }
-        if (location.pathname === '/') {
+        if (location.pathname === '/' && !this.props.searchFor) {
             this.props.gotQueryFromStorage();
             this.searchFromLocalStorage();
         }
         if (Object.entries(this.props.settings).length !== 0) {
-            if (window.innerWidth <= 2144) {
-                this.makeRequest();
-            } else {
-                if(!this.state.madeDoubleRequest) {
-                    this.makeRequest()
-                    .then(this.makeRequest)
-                    .then(() => {
-                        this.setState(() => ({ madeDoubleRequest: true }));
-                    });
-                } else {
-                    this.makeRequest();
-                }
-            }
+            this.makeRequest();
         } else {
-            if (window.innerWidth <= 2144) {
-                this.configuration()
-                    .then(this.makeRequest);
-            } else {
-                if(!this.state.madeDoubleRequest) {
-                    this.configuration()
-                    .then(this.makeRequest)
-                    .then(this.makeRequest)
-                    .then(() => {
-                        this.setState(() => ({ madeDoubleRequest: true }));
-                    });
-                } else {
-                    this.makeRequest();
-                }
-            }
+            this.configuration()
+            .then(this.makeRequest);
         }
 
         window.addEventListener('scroll', this.onScroll);
