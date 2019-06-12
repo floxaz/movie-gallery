@@ -1,0 +1,60 @@
+.footer {
+    width: 100%;
+    height: calc(25vh - 7rem);
+    background-color: $violet;
+
+    &__about {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__copyright {
+        display: flex;
+    }
+
+    &__emoji {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: rgba(#fff, .6);
+        margin-right: .5rem;
+    }
+
+    &__author {
+        color: rgba(#fff, .6);
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    &__author p:first-child {
+        margin-bottom: .5rem;
+    }
+
+    &__link {
+        display: inline-block;
+        text-decoration: none;
+        color: $green;
+    }
+
+    &__tmdb {
+        width: 15rem;
+        height: auto;
+    }
+
+    &__source,
+    &__link {
+        //transform: translateY(0rem);
+        transition: all .4s ease;
+    }
+
+    &__source:hover,
+    &__link:hover {
+        transform: translateY(.2rem);
+    }
+}
+
+.row--footer {
+    height: 100%;
+}

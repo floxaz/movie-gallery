@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addGenres } from '../actions/genres';
@@ -44,15 +45,18 @@ class Genres extends React.Component {
   render() {
     return (
       <div className="genres" onClick={this.handleGenreClick}>
-        <div className="genres__container">
-          {this.props.genres.length > 0 ? this.props.genres.map(genre => (
-            <div className="genres__item" key={genre.id} id={genre.id}>
-              <Link className="genres__link" to={`${this.props.match.url}/${genre.name.toLowerCase()}`}>
-                {genre.name}
-              </Link>
-            </div>
-          )) : 'wait a second...'}
+        <div className="genres__wrapper">
+          <div className="genres__container">
+            {this.props.genres.length > 0 ? this.props.genres.map(genre => (
+              <div className="genres__item" key={genre.id} id={genre.id}>
+                <Link className="genres__link" to={`${this.props.match.url}/${genre.name.toLowerCase()}`}>
+                  {genre.name}
+                </Link>
+              </div>
+            )) : 'wait a second...'}
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }

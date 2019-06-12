@@ -1,15 +1,19 @@
 .genres {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 100vh;
-    align-items: center;
-    justify-items: center;
+    padding-top: 7rem;
+    &__wrapper {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 75vh;
+        align-items: center;
+        justify-items: center;
+    }
     &__container {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 30rem);
         grid-row-gap: 1rem;
         grid-column-gap: 4rem;
+        text-align: center;
     }
 
     &__link {
