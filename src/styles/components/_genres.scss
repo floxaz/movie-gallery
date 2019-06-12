@@ -1,24 +1,48 @@
 .genres {
     padding-top: 7rem;
+    height: 100%;
+
+    &__big-container {
+        min-height: 100%;
+    }
+
     &__wrapper {
+        overflow: auto;
         position: relative;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 75vh;
         align-items: center;
         justify-items: center;
+        padding-bottom: 14rem;
+        
     }
     &__container {
+        margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(2, 30rem);
         grid-row-gap: 1rem;
         grid-column-gap: 4rem;
         text-align: center;
+        width: 64rem;
+    }
+
+    &__item {
+        transition: all .4s ease;
     }
 
     &__link {
         color: #fff;
         text-decoration: none;
         font-size: 3rem;
+        transition: color .4s ease;
+    }
+
+    &__item:hover {
+        transform: translateY(.2rem);
+    }
+
+    &__item:hover &__link {
+        color: $green;
     }
 }

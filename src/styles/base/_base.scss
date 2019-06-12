@@ -20,9 +20,13 @@ body {
     background-color: #30273d;
 }
 
+#app {
+    height: 100%;
+}
+
 .row {
     margin: 0 auto;
-    max-width: 128rem;
+    max-width: 114rem;
     padding: 0 7rem;
 }
 

@@ -11,9 +11,6 @@ const Footer = () => {
             <span>Buy me a coffee</span>
             </a>
               <div className="footer__copyright">
-                 <svg className="footer__emoji">
-                   <use xlinkHref="./images/sprite.svg#icon-cool"></use>
-                 </svg>
                  <div className="footer__author">
                   <p>Built and coded by <a href="https://rossyatsura.com/" className="footer__link">Ross Yatsura</a></p>
                   <p>&copy; Copyright {year}</p>
