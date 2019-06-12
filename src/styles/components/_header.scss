@@ -8,22 +8,22 @@
 
     &__box-arrow {
         background-color: transparent;
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
         position: absolute;
         top: 50%;
-        left: 2rem;
+        left: .8rem;
         transform: translateY(-50%);
     }
 
     &__arrow {
         fill: #fff;
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
     }
 
     &__item {
-        margin-right: 2rem;
+        margin-right: .8rem;
         transition: all .2s ease;
     }
 
@@ -38,11 +38,32 @@
     &__link {
         color: #fff;
         text-decoration: none;
-        font-size: 2rem;
+        font-size: 1.4rem;
         transition: all .4s;
     }
 
     &__link:hover {
         color: $green;
+    }
+}
+
+@media (min-width: $smaller-phone) {
+    .header__box-arrow {
+        width: 3rem;
+        height: 3rem;
+        left: 2rem;
+    }
+
+    .header__arrow {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .header__item {
+        margin-right: 2rem;
+    }
+
+    .header__link {
+        font-size: 2rem;
     }
 }
