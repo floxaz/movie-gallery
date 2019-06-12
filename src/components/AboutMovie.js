@@ -1,5 +1,6 @@
 import React from 'react';
 import configure from '../actions/configuration';
+import Actor from './Actor';
 import { connect } from 'react-redux';
 
 class AboutMovie extends React.Component {
@@ -16,9 +17,15 @@ class AboutMovie extends React.Component {
             this.configuration()
                 .then(() => {
                     this.getMovieInfo(movieID);
+                })
+                .then(() => {
+                    this.getCast(movieID);
                 });
         } else {
-            this.getMovieInfo(movieID);
+            this.getMovieInfo(movieID)
+            .then(() => {
+                this.getCast(movieID);
+            });
         }
     }
 
@@ -46,6 +53,7 @@ class AboutMovie extends React.Component {
                     countries: movieData.production_countries,
                     runtime: movieData.runtime,
                     overview: movieData.overview,
+                    poster_path: movieData.poster_path,
                     backdrop_path: movieData.backdrop_path
                 }));
             } else {
@@ -67,16 +75,47 @@ class AboutMovie extends React.Component {
         return list;
     }
 
+    getCast = async movieID => {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.key}`);
+        const credit = await response.json();
+        console.log(credit);
+        if(this._isMounted) {
+            this.setState(() => ({
+                cast: credit.cast
+            }));
+        }
+    }
+
     render() {
         const showFilm = (
-            <div>
-            {this.state.backdrop_path && <img src={`${this.props.settings.base_url}${this.props.settings.backdrop_sizes[2]}${this.state.backdrop_path}`} />}
-            {this.state.title && <h1>{this.state.title}</h1>}
-            {this.state.genres && <p>Genres: {this.makeList(this.state.genres)}</p>}
-            {this.state.release && <p>Release: {this.state.release}</p>}
-            {this.state.countries && <p>Country: {this.makeList(this.state.countries)}</p>}
-            {this.state.runtime && <p>Duration: {this.state.runtime} min</p>}
-            {this.state.overview && <p>{this.state.overview}</p>}
+            <div className="aboutMovie">
+                <div className="aboutMovie__poster-container">
+                    {this.state.backdrop_path &&
+                        <img
+                            src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
+                            className="aboutMovie__poster"
+                        />
+                    }
+                </div>
+                <div className="aboutMovie__details">
+                    {this.state.title && <h1 className="aboutMovie__title">{this.state.title}</h1>}
+                    {this.state.genres && <p className="aboutMovie__genres">Genres: {this.makeList(this.state.genres)}</p>}
+                    {this.state.release && <p className="aboutMovie__release">Release: {this.state.release}</p>}
+                    {this.state.countries && <p className="aboutMovie__country">Country: {this.makeList(this.state.countries)}</p>}
+                    {this.state.runtime && <p className="aboutMovie__duration">Duration: {this.state.runtime} min</p>}
+                    {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
+                    <p>Cast</p>
+                    <div className="aboutMovie__cast">
+                        {this.state.cast && this.state.cast.map(actor => (
+                            <Actor
+                                key={actor.id}
+                                base_url={this.props.settings.base_url}
+                                profile_size={this.props.settings.profile_sizes[1]}
+                                profile_path={actor.profile_path}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         );
         const noFilm = (
