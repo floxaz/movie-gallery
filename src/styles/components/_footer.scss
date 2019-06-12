@@ -5,13 +5,19 @@
     margin-top: -14rem;
     clear: both;
     background-color: $violet;
+    padding: 8rem 0;
 
     &__about {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        flex-direction: column;
         align-items: center;
         width: 100%;
         height: 100%;
+    }
+
+    &__about > *:not(.bmc-button) {
+        margin-bottom: 1rem;
     }
 
     &__emoji {
@@ -24,7 +30,8 @@
     &__author {
         color: rgba(#fff, .6);
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        order: -1;
     }
 
     &__author p:first-child {
@@ -38,7 +45,7 @@
     }
 
     &__tmdb {
-        width: 15rem;
+        width: 10rem;
         height: auto;
     }
 
@@ -55,4 +62,24 @@
 
 .row--footer {
     height: 100%;
+}
+
+@media (min-width: $phone-device) {
+    .footer {
+        padding: 0;
+    }
+    .footer__author {
+        font-size: 1.2rem;
+    }
+
+    .footer__about {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .footer__about > *:not(.bmc-button) {
+        margin-bottom: 0;
+    }
+
+    .footer__tmdb { width: 15rem; }
 }

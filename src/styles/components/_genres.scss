@@ -1,6 +1,6 @@
 .genres {
-    padding-top: 7rem;
-    height: 100%;
+    padding-top: 9rem;
+    height: 100% !important;
 
     &__big-container {
         min-height: 100%;
@@ -9,22 +9,26 @@
     &__wrapper {
         overflow: auto;
         position: relative;
+        /*
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 75vh;
         align-items: center;
         justify-items: center;
-        padding-bottom: 14rem;
+        */
+        display: flex;
+
+        padding-bottom: 16rem;
         
     }
     &__container {
         margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(2, 30rem);
-        grid-row-gap: 1rem;
-        grid-column-gap: 4rem;
+        //grid-template-columns: repeat(2, 15rem);
+        grid-template-columns: 1fr;
+        grid-row-gap: .4rem;
+        grid-column-gap: 2rem;
         text-align: center;
-        width: 64rem;
+        width: 32rem;
     }
 
     &__item {
@@ -34,7 +38,7 @@
     &__link {
         color: #fff;
         text-decoration: none;
-        font-size: 3rem;
+        font-size: 2rem;
         transition: color .4s ease;
     }
 
@@ -44,5 +48,26 @@
 
     &__item:hover &__link {
         color: $green;
+    }
+}
+
+@media (min-width: $phone-device) {
+    .genres {
+        padding-top: 7rem;
+    }
+
+    .genres__wrapper {
+        padding-top: 8rem;
+        padding-bottom: 14rem;
+    }
+    .genres__container {
+        grid-template-columns: repeat(2, 30rem);
+        grid-row-gap: 1rem;
+        grid-column-gap: 4rem;
+        width: 64rem;
+        height: 44rem;
+    }
+    .genres__link {
+        font-size: 3rem;
     }
 }
