@@ -13,20 +13,7 @@ class AboutMovie extends React.Component {
     componentDidMount() {
         this._isMounted = true;
         const movieID = this.props.location.pathname.split('-')[1];;
-        if (Object.entries(this.props.settings).length === 0) {
-            this.configuration()
-                .then(() => {
-                    this.getMovieInfo(movieID);
-                })
-                .then(() => {
-                    this.getCast(movieID);
-                });
-        } else {
-            this.getMovieInfo(movieID)
-            .then(() => {
-                this.getCast(movieID);
-            });
-        }
+        this.downloadInfo(movieID);
     }
 
     componentWillUnmount() {
@@ -65,7 +52,7 @@ class AboutMovie extends React.Component {
     makeList = property => {
         let list = '';
         property.forEach((character, index) => {
-            if(index < property.length - 1) {
+            if (index < property.length - 1) {
                 list += character.name + ', ';
             } else {
                 list += character.name;
@@ -79,41 +66,72 @@ class AboutMovie extends React.Component {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.key}`);
         const credit = await response.json();
         console.log(credit);
-        if(this._isMounted) {
+        if (this._isMounted) {
             this.setState(() => ({
                 cast: credit.cast
             }));
         }
     }
 
+    downloadInfo = movieID => {
+        if (Object.entries(this.props.settings).length === 0) {
+            this.configuration()
+                .then(() => {
+                    this.getMovieInfo(movieID);
+                })
+                .then(() => {
+                    this.getCast(movieID);
+                });
+        } else {
+            this.getMovieInfo(movieID)
+                .then(() => {
+                    this.getCast(movieID);
+                });
+        }
+    }
+
     render() {
         const showFilm = (
             <div className="aboutMovie">
-                <div className="aboutMovie__poster-container">
-                    {this.state.backdrop_path &&
-                        <img
-                            src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
-                            className="aboutMovie__poster"
-                        />
-                    }
-                </div>
-                <div className="aboutMovie__details">
-                    {this.state.title && <h1 className="aboutMovie__title">{this.state.title}</h1>}
-                    {this.state.genres && <p className="aboutMovie__genres">Genres: {this.makeList(this.state.genres)}</p>}
-                    {this.state.release && <p className="aboutMovie__release">Release: {this.state.release}</p>}
-                    {this.state.countries && <p className="aboutMovie__country">Country: {this.makeList(this.state.countries)}</p>}
-                    {this.state.runtime && <p className="aboutMovie__duration">Duration: {this.state.runtime} min</p>}
-                    {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
-                    <p>Cast</p>
-                    <div className="aboutMovie__cast">
-                        {this.state.cast && this.state.cast.map(actor => (
-                            <Actor
-                                key={actor.id}
-                                base_url={this.props.settings.base_url}
-                                profile_size={this.props.settings.profile_sizes[1]}
-                                profile_path={actor.profile_path}
+                <div className="row row--flex">
+                    <div className="aboutMovie__poster-container">
+                        {this.state.backdrop_path &&
+                            <img
+                                src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
+                                className="aboutMovie__poster"
                             />
-                        ))}
+                        }
+                    </div>
+                    <div className="aboutMovie__details">
+                        {this.state.title && <h1 className="aboutMovie__title">{this.state.title}</h1>}
+                        {this.state.genres && <p className="aboutMovie__genres">Genres: {this.makeList(this.state.genres)}</p>}
+                        {this.state.release && <p className="aboutMovie__release">Release: {this.state.release}</p>}
+                        {this.state.countries && <p className="aboutMovie__country">Country: {this.makeList(this.state.countries)}</p>}
+                        {this.state.runtime && <p className="aboutMovie__duration">Duration: {this.state.runtime} min</p>}
+                        {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
+                        <p>Cast</p>
+                        <div className="aboutMovie__cast">
+                            <button className="aboutMovie__button aboutMovie__button--left">
+                            <svg className="aboutMovie__arrow">
+                            <use xlinkHref="images/sprite.svg#left"></use>
+                           </svg>
+                            </button>
+                            <div className="aboutMovie__actors">
+                                {this.state.cast && this.state.cast.map(actor => (
+                                    <Actor
+                                        key={actor.id}
+                                        base_url={this.props.settings.base_url}
+                                        profile_size={this.props.settings.profile_sizes[1]}
+                                        profile_path={actor.profile_path}
+                                    />
+                                ))}
+                            </div>
+                            <button className="aboutMovie__button aboutMovie__button--right">
+                                <svg className="aboutMovie__arrow">
+                                 <use xlinkHref="images/sprite.svg#right"></use>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
