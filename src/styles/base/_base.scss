@@ -35,10 +35,6 @@ body {
     align-items: center;
 }
 
-.row--overflow {
-    overflow: hidden;
-}
-
 @media (min-width: $smaller-phone) {
     .row {
         padding: 0 7rem;

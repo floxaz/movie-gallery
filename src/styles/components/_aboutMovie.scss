@@ -1,8 +1,39 @@
 .aboutMovie {
-    padding-top: 10rem;
+    padding-top: 12rem;
     color: #fff;
 
+    &__details p {
+        line-height: 2rem;
+    }
+
+    &__title,
+    &__genres,
+    &__release,
+    &__country,
+    &__duration,
+    &__overview,
     &__cast {
+        margin-bottom: .8rem;
+    }
+
+    &__title {
+        font-size: 4.5rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $green;
+        margin-bottom: 1rem;
+    }
+
+    &__section {
+        color: $green;
+        font-weight: 700;
+    }
+
+    &__poster-container {
+        margin-right: 6rem;
+    }
+
+    &__cast-carousel {
         display: flex;
         align-items: center;
         height: 8rem;
@@ -15,7 +46,6 @@
         border: none;
         cursor: pointer;
         outline: none;
-        //fill: #f;
     }
 
     &__arrow {
@@ -30,15 +60,24 @@
     }
 
     &__actors {
+        //display: flex;
+        //flex-wrap: nowrap;
+        width: 45rem;
+        overflow: hidden;
+        margin: 0 2rem;
+        //background: lightcoral;
+        //transition: transform .4s ease;
+    }
+
+    &__track {
         display: flex;
         flex-wrap: nowrap;
-        width: 40rem;
-        overflow: hidden;
-        //background: lightcoral;
+        transition: transform .4s ease;
     }
 
     &__actor {
         border-radius: 100px;
+        padding: 0 .5rem;
     }
 
     &__link {
