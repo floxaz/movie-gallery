@@ -157,15 +157,7 @@ class AboutMovie extends React.Component {
                             <button
                                 className="aboutMovie__button aboutMovie__button--left"
                                 onClick={this.moveActorsLeft}
-                                style={this.state.hideLeftButton ? {
-                                    visibility: 'hidden',
-                                    opacity: '0'
-                                } :
-                                    {
-                                        visibility: 'visible',
-                                        opacity: '1'
-                                    }
-                                }
+                                disabled={this.state.hideLeftButton ? true : false}
                             >
                                 <svg className="aboutMovie__arrow">
                                     <use xlinkHref="images/sprite.svg#left"></use>
@@ -192,15 +184,7 @@ class AboutMovie extends React.Component {
                             <button
                                 className="aboutMovie__button aboutMovie__button--right"
                                 onClick={this.moveActorsRight}
-                                style={this.state.hideRightButton ? {
-                                    visibility: 'hidden',
-                                    opacity: '0'
-                                } :
-                                    {
-                                        visibility: 'visible',
-                                        opacity: '1'
-                                    }
-                                }
+                                disabled={this.state.hideRightButton ? true : false}
                             >
                                 <svg className="aboutMovie__arrow">
                                     <use xlinkHref="images/sprite.svg#right"></use>

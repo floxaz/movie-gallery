@@ -48,6 +48,14 @@
         outline: none;
     }
 
+    &__button:disabled {
+        cursor: auto;
+    }
+
+    &__button:disabled &__arrow {
+        fill: rgba(#fff, .3);
+    }
+
     &__arrow {
         width: 3rem;
         height: 3rem;
