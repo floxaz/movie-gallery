@@ -170,13 +170,12 @@ class AboutMovie extends React.Component {
                                     transform: `translateX(-${this.state.translate}rem)`
                                 }}
                                 >
-                                    {this.state.cast && this.state.cast.map((actor, index) => (
+                                    {this.state.cast && this.state.cast.map(actor => (
                                         <Actor
                                             key={actor.id}
                                             base_url={this.props.settings.base_url}
                                             profile_size={this.props.settings.profile_sizes[1]}
                                             profile_path={actor.profile_path}
-                                            index={index}
                                         />
                                     ))}
                                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Actor = ({ base_url, profile_size, profile_path, index }) => (
+const Actor = ({ base_url, profile_size, profile_path }) => (
     <div className="aboutMovie__actor">
         <Link to="#" className="aboutMovie__link">
             {profile_path ?
