@@ -138,11 +138,13 @@ class AboutMovie extends React.Component {
             <div className="aboutMovie">
                 <div className="row row--flex">
                     <div className="aboutMovie__poster-container">
-                        {this.state.backdrop_path &&
+                        {this.state.poster_path ?
                             <img
                                 src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
                                 className="aboutMovie__poster"
                             />
+                            :
+                            <img src="images/no-movie.svg" className="aboutMovie__no-movie-poster" />
                         }
                     </div>
                     <div className="aboutMovie__details">
