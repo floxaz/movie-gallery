@@ -1,11 +1,10 @@
 .footer {
-    width: 100%;
-    position: relative;
-    height: 14rem;
-    margin-top: -14rem;
-    clear: both;
     background-color: $violet;
+    font-family: 'Titillium Web', sans-serif;
+    height: 14rem;
     padding: 8rem 0;
+    position: relative;
+    width: 100%;
 
     &__about {
         display: flex;

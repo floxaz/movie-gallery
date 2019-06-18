@@ -1,29 +1,16 @@
 .genres {
-    padding-top: 9rem;
     height: 100% !important;
-
-    &__big-container {
-        min-height: 100%;
-    }
+    display: flex;
+    flex-direction: column;
 
     &__wrapper {
-        overflow: auto;
-        position: relative;
-        /*
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        justify-items: center;
-        */
-        display: flex;
-
-        padding-bottom: 16rem;
-        
+        flex: 1;
+        padding-top: 4rem;
     }
-    &__container {
+
+    &__content {
         margin: 0 auto;
         display: grid;
-        //grid-template-columns: repeat(2, 15rem);
         grid-template-columns: 1fr;
         grid-row-gap: .4rem;
         grid-column-gap: 2rem;
@@ -56,11 +43,7 @@
         padding-top: 7rem;
     }
 
-    .genres__wrapper {
-        padding-top: 8rem;
-        padding-bottom: 14rem;
-    }
-    .genres__container {
+    .genres__content {
         grid-template-columns: repeat(2, 30rem);
         grid-row-gap: 1rem;
         grid-column-gap: 4rem;

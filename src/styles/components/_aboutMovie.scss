@@ -1,8 +1,14 @@
 .aboutMovie {
-    padding-top: 12rem;
+    height: 100% !important;
     color: #fff;
     font-family: 'Titillium Web', sans-serif;
-    margin-bottom: 18.2rem;
+    display: flex;
+    flex-direction: column;
+
+    &__wrapper {
+        flex: 1;
+        padding-top: 12rem;
+    }
 
     &__details p {
         line-height: 150%;
@@ -19,7 +25,6 @@
     }
 
     &__title {
-        //font-family: 'Titillium Web', sans-serif;
         font-family: 'Open Sans', sans-serif;
         font-size: 4.5rem;
         font-weight: 300;

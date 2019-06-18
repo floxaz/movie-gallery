@@ -136,8 +136,8 @@ class AboutMovie extends React.Component {
 
     render() {
         const showFilm = (
-            <React.Fragment>
-                <div className="aboutMovie">
+            <div className="aboutMovie">
+                <div className="aboutMovie__wrapper">
                     <div className="row row--flex row--flex-wrap">
                         <div className="aboutMovie__poster-container">
                             {this.state.poster_path ?
@@ -198,7 +198,7 @@ class AboutMovie extends React.Component {
                     </div>
                 </div>
                 <Footer />
-            </React.Fragment>
+            </div>
         );
         const noFilm = (
             <div>
