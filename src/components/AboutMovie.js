@@ -1,6 +1,7 @@
 import React from 'react';
 import configure from '../actions/configuration';
 import Actor from './Actor';
+import Footer from './Footer';
 import { connect } from 'react-redux';
 
 class AboutMovie extends React.Component {
@@ -98,10 +99,10 @@ class AboutMovie extends React.Component {
     moveActorsRight = () => {
         const profileWidth = 9;
         const remainingActors = this.state.remainingActors;
-        if(remainingActors === 0) return;
+        if (remainingActors === 0) return;
         const actorsToMove = remainingActors > 5 ? 5 : remainingActors;
-        this.setState(prevState => ({ 
-            translate: prevState.translate + ( profileWidth *  actorsToMove),
+        this.setState(prevState => ({
+            translate: prevState.translate + (profileWidth * actorsToMove),
             remainingActors: prevState.remainingActors <= 5 ? 0 : prevState.remainingActors - 5,
             watchedActors: prevState.watchedActors + actorsToMove
         }), this.hideShowButtons);
@@ -110,23 +111,23 @@ class AboutMovie extends React.Component {
     moveActorsLeft = () => {
         const profileWidth = 9;
         const watchedActors = this.state.watchedActors;
-        if(watchedActors === 0) return;
+        if (watchedActors === 0) return;
         const actorsToMove = watchedActors > 5 ? 5 : watchedActors;
-        this.setState(prevState => ({ 
-            translate: prevState.translate - ( profileWidth *  actorsToMove),
+        this.setState(prevState => ({
+            translate: prevState.translate - (profileWidth * actorsToMove),
             remainingActors: prevState.remainingActors + actorsToMove,
             watchedActors: prevState.watchedActors <= 5 ? 0 : prevState.watchedActors - 5,
         }), this.hideShowButtons);
     }
 
     hideShowButtons = () => {
-        if(this.state.watchedActors > 0) {
+        if (this.state.watchedActors > 0) {
             this.setState(() => ({ hideLeftButton: false }));
         } else {
             this.setState(() => ({ hideLeftButton: true }));
         }
 
-        if(this.state.remainingActors === 0) {
+        if (this.state.remainingActors === 0) {
             this.setState(() => ({ hideRightButton: true }));
         } else {
             this.setState(() => ({ hideRightButton: false }));
@@ -135,66 +136,69 @@ class AboutMovie extends React.Component {
 
     render() {
         const showFilm = (
-            <div className="aboutMovie">
-                <div className="row row--flex">
-                    <div className="aboutMovie__poster-container">
-                        {this.state.poster_path ?
-                            <img
-                                src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
-                                className="aboutMovie__poster"
-                            />
-                            :
-                            <img src="images/no-movie.svg" className="aboutMovie__no-movie-poster" />
-                        }
-                    </div>
-                    <div className="aboutMovie__details">
-                        {this.state.title && <h1 className="aboutMovie__title">{this.state.title}</h1>}
-                        {this.state.genres && <p className="aboutMovie__genres"><span className="aboutMovie__section">Genres: </span>{this.makeList(this.state.genres)}</p>}
-                        {this.state.release && <p className="aboutMovie__release"><span className="aboutMovie__section">Release: </span>{this.state.release}</p>}
-                        {this.state.countries && <p className="aboutMovie__country"><span className="aboutMovie__section">Country: </span>{this.makeList(this.state.countries)}</p>}
-                        {this.state.runtime && <p className="aboutMovie__duration"><span className="aboutMovie__section">Duration: </span>{this.state.runtime} min</p>}
-                        {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
-                        <p className="aboutMovie__cast"><span className="aboutMovie__section">Cast</span></p>
-                        <div className="aboutMovie__cast-carousel">
-                            <button
-                                className="aboutMovie__button aboutMovie__button--left"
-                                onClick={this.moveActorsLeft}
-                                disabled={this.state.hideLeftButton ? true : false}
-                            >
-                                <svg className="aboutMovie__arrow">
-                                    <use xlinkHref="images/sprite.svg#left"></use>
-                                </svg>
-                            </button>
-                            <div className="aboutMovie__actors">
-                                <div 
-                                className="aboutMovie__track"
-                                style={{
-                                    transform: `translateX(-${this.state.translate}rem)`
-                                }}
+            <React.Fragment>
+                <div className="aboutMovie">
+                    <div className="row row--flex row--flex-wrap">
+                        <div className="aboutMovie__poster-container">
+                            {this.state.poster_path ?
+                                <img
+                                    src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
+                                    className="aboutMovie__poster"
+                                />
+                                :
+                                <img src="images/no-movie.svg" className="aboutMovie__no-movie-poster" />
+                            }
+                        </div>
+                        <div className="aboutMovie__details">
+                            {this.state.title && <h1 className="aboutMovie__title">{this.state.title}</h1>}
+                            {this.state.genres && <p className="aboutMovie__genres"><span className="aboutMovie__section">Genres: </span>{this.makeList(this.state.genres)}</p>}
+                            {this.state.release && <p className="aboutMovie__release"><span className="aboutMovie__section">Release: </span>{this.state.release}</p>}
+                            {this.state.countries && <p className="aboutMovie__country"><span className="aboutMovie__section">Country: </span>{this.makeList(this.state.countries)}</p>}
+                            {this.state.runtime && <p className="aboutMovie__duration"><span className="aboutMovie__section">Duration: </span>{this.state.runtime} min</p>}
+                            {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
+                            <p className="aboutMovie__cast"><span className="aboutMovie__section">Cast</span></p>
+                            <div className="aboutMovie__cast-carousel">
+                                <button
+                                    className="aboutMovie__button aboutMovie__button--left"
+                                    onClick={this.moveActorsLeft}
+                                    disabled={this.state.hideLeftButton ? true : false}
                                 >
-                                    {this.state.cast && this.state.cast.map(actor => (
-                                        <Actor
-                                            key={actor.id}
-                                            base_url={this.props.settings.base_url}
-                                            profile_size={this.props.settings.profile_sizes[1]}
-                                            profile_path={actor.profile_path}
-                                        />
-                                    ))}
+                                    <svg className="aboutMovie__arrow">
+                                        <use xlinkHref="images/sprite.svg#left"></use>
+                                    </svg>
+                                </button>
+                                <div className="aboutMovie__actors">
+                                    <div
+                                        className="aboutMovie__track"
+                                        style={{
+                                            transform: `translateX(-${this.state.translate}rem)`
+                                        }}
+                                    >
+                                        {this.state.cast && this.state.cast.map(actor => (
+                                            <Actor
+                                                key={actor.id}
+                                                base_url={this.props.settings.base_url}
+                                                profile_size={this.props.settings.profile_sizes[1]}
+                                                profile_path={actor.profile_path}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
+                                <button
+                                    className="aboutMovie__button aboutMovie__button--right"
+                                    onClick={this.moveActorsRight}
+                                    disabled={this.state.hideRightButton ? true : false}
+                                >
+                                    <svg className="aboutMovie__arrow">
+                                        <use xlinkHref="images/sprite.svg#right"></use>
+                                    </svg>
+                                </button>
                             </div>
-                            <button
-                                className="aboutMovie__button aboutMovie__button--right"
-                                onClick={this.moveActorsRight}
-                                disabled={this.state.hideRightButton ? true : false}
-                            >
-                                <svg className="aboutMovie__arrow">
-                                    <use xlinkHref="images/sprite.svg#right"></use>
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+                <Footer />
+            </React.Fragment>
         );
         const noFilm = (
             <div>
