@@ -82,8 +82,7 @@
     }
 
     &__actors {
-        max-width: 45rem;
-        //width: 45rem;
+        width: 35rem;
         overflow: hidden;
         margin: 0 .5rem;
     }
@@ -122,6 +121,10 @@
     .aboutMovie__no-actor-profile {
         width: 8rem;
         height: 8rem;
+    }
+
+    .aboutMovie__actors {
+        width: 45rem;
     }
 }
 

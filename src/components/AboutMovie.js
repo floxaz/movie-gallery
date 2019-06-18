@@ -77,16 +77,9 @@ class AboutMovie extends React.Component {
                 cast: credit.cast,
                 remainingActors: credit.cast.length >= 5 ? credit.cast.length - 5 : 0,
                 hideRightButton: credit.cast.length <= 5 ? true : false
-            }), this.setActorProfileWidth);
-            //console.log(this.castActors.current.children[0].offsetWidth);
+            }));
         }
     }
-
-    setActorProfileWidth = () => {
-        this.setState(() => ({
-            actorProfileWidth: this.castActors.current.children[0].offsetWidth
-        }));
-    };
 
     downloadInfo = movieID => {
         if (Object.entries(this.props.settings).length === 0) {
@@ -110,24 +103,44 @@ class AboutMovie extends React.Component {
         const remainingActors = this.state.remainingActors;
         if (remainingActors === 0) return;
         const actorsToMove = remainingActors > 5 ? 5 : remainingActors;
-        this.setState(prevState => ({
-            translate: prevState.translate + (profileWidth * actorsToMove),
-            remainingActors: prevState.remainingActors <= 5 ? 0 : prevState.remainingActors - 5,
-            watchedActors: prevState.watchedActors + actorsToMove
-        }), this.hideShowButtons);
+        // if the actor profile width has not been changed
+        if(this.state.translate / this.state.watchedActors === profileWidth || this.state.translate / this.state.watchedActors === 0) {
+            this.setState(prevState => ({
+                translate: prevState.translate + (profileWidth * actorsToMove),
+                remainingActors: prevState.remainingActors <= 5 ? 0 : prevState.remainingActors - 5,
+                watchedActors: prevState.watchedActors + actorsToMove
+            }), this.hideShowButtons);
+        } else {
+            // In case it has been changed, adjust carousel transform: transalate, then do the normal work
+            this.setState(prevState => ({
+                translate: prevState.watchedActors * profileWidth + (profileWidth * actorsToMove),
+                remainingActors: prevState.remainingActors <= 5 ? 0 : prevState.remainingActors - 5,
+                watchedActors: prevState.watchedActors + actorsToMove
+            }), this.hideShowButtons);
+        }
+        
     }
 
     moveActorsLeft = () => {
         const profileWidth = this.castActors.current.children[0].offsetWidth / 10;
-        console.log(profileWidth);
         const watchedActors = this.state.watchedActors;
         if (watchedActors === 0) return;
         const actorsToMove = watchedActors > 5 ? 5 : watchedActors;
-        this.setState(prevState => ({
-            translate: prevState.translate - (profileWidth * actorsToMove),
-            remainingActors: prevState.remainingActors + actorsToMove,
-            watchedActors: prevState.watchedActors <= 5 ? 0 : prevState.watchedActors - 5,
-        }), this.hideShowButtons);
+        // if the actor profile width has not been changed
+        if(this.state.translate / this.state.watchedActors === profileWidth || this.state.translate / this.state.watchedActors === 0) {
+            this.setState(prevState => ({
+                translate: prevState.translate - (profileWidth * actorsToMove),
+                remainingActors: prevState.remainingActors + actorsToMove,
+                watchedActors: prevState.watchedActors <= 5 ? 0 : prevState.watchedActors - 5,
+            }), this.hideShowButtons);
+        } else {
+            // In case it has been changed, adjust carousel transform: transalate, then do the normal work
+            this.setState(prevState => ({
+                translate: prevState.watchedActors * profileWidth - (profileWidth * actorsToMove),
+                remainingActors: prevState.remainingActors + actorsToMove,
+                watchedActors: prevState.watchedActors <= 5 ? 0 : prevState.watchedActors - 5,
+            }), this.hideShowButtons);
+        }
     }
 
     hideShowButtons = () => {
@@ -181,8 +194,7 @@ class AboutMovie extends React.Component {
                                     <div
                                         className="aboutMovie__track"
                                         style={{
-                                            transform: `translateX(-${this.state.translate}rem)`,
-                                            width: this.state.actorProfileWidth ? `${this.state.actorProfileWidth / 10 * 5}rem` : '45rem'
+                                            transform: `translateX(-${this.state.translate}rem)`
                                         }}
                                         ref={this.castActors}
                                     >
