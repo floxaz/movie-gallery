@@ -39,7 +39,7 @@
     }
 
     &__poster-container {
-        margin-right: 6rem;
+        margin-right: 2rem;
     }
 
     &__no-movie-poster {
@@ -82,13 +82,10 @@
     }
 
     &__actors {
-        //display: flex;
-        //flex-wrap: nowrap;
-        width: 45rem;
+        max-width: 45rem;
+        //width: 45rem;
         overflow: hidden;
-        margin: 0 2rem;
-        //background: lightcoral;
-        //transition: transform .4s ease;
+        margin: 0 .5rem;
     }
 
     &__track {
@@ -110,12 +107,30 @@
 
     &__actor-profile,
     &__no-actor-profile {
-        width: 8rem;
-        height: 8rem;
+        width: 6rem;
+        height: 6rem;
         border-radius: 100px;
     }
 
     &__actor-profile {
         object-fit: cover;
+    }
+}
+
+@media (min-width: $smaller-screen) {
+    .aboutMovie__actor-profile,
+    .aboutMovie__no-actor-profile {
+        width: 8rem;
+        height: 8rem;
+    }
+}
+
+@media (min-width: $normal-screen) {
+    .aboutMovie__poster-container {
+        margin-right: 6rem;
+    }
+
+    .aboutMovie__actors {
+        margin: 0 2rem;
     }
 }

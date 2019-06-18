@@ -8,11 +8,13 @@ class AboutMovie extends React.Component {
     _isMounted = false;
     dbUrl = 'https://api.themoviedb.org/3/';
     key = '98138b2310ee9081572944e69a78f168';
+    castActors = React.createRef();
     state = {
         error: false,
         translate: 0,
         hideLeftButton: true,
-        watchedActors: 0
+        watchedActors: 0,
+        carouselTrackWidth: undefined
     }
     componentDidMount() {
         this._isMounted = true;
@@ -75,9 +77,16 @@ class AboutMovie extends React.Component {
                 cast: credit.cast,
                 remainingActors: credit.cast.length >= 5 ? credit.cast.length - 5 : 0,
                 hideRightButton: credit.cast.length <= 5 ? true : false
-            }));
+            }), this.setActorProfileWidth);
+            //console.log(this.castActors.current.children[0].offsetWidth);
         }
     }
+
+    setActorProfileWidth = () => {
+        this.setState(() => ({
+            actorProfileWidth: this.castActors.current.children[0].offsetWidth
+        }));
+    };
 
     downloadInfo = movieID => {
         if (Object.entries(this.props.settings).length === 0) {
@@ -97,7 +106,7 @@ class AboutMovie extends React.Component {
     }
 
     moveActorsRight = () => {
-        const profileWidth = 9;
+        const profileWidth = this.castActors.current.children[0].offsetWidth / 10;
         const remainingActors = this.state.remainingActors;
         if (remainingActors === 0) return;
         const actorsToMove = remainingActors > 5 ? 5 : remainingActors;
@@ -109,7 +118,8 @@ class AboutMovie extends React.Component {
     }
 
     moveActorsLeft = () => {
-        const profileWidth = 9;
+        const profileWidth = this.castActors.current.children[0].offsetWidth / 10;
+        console.log(profileWidth);
         const watchedActors = this.state.watchedActors;
         if (watchedActors === 0) return;
         const actorsToMove = watchedActors > 5 ? 5 : watchedActors;
@@ -171,8 +181,10 @@ class AboutMovie extends React.Component {
                                     <div
                                         className="aboutMovie__track"
                                         style={{
-                                            transform: `translateX(-${this.state.translate}rem)`
+                                            transform: `translateX(-${this.state.translate}rem)`,
+                                            width: this.state.actorProfileWidth ? `${this.state.actorProfileWidth / 10 * 5}rem` : '45rem'
                                         }}
+                                        ref={this.castActors}
                                     >
                                         {this.state.cast && this.state.cast.map(actor => (
                                             <Actor
@@ -180,6 +192,7 @@ class AboutMovie extends React.Component {
                                                 base_url={this.props.settings.base_url}
                                                 profile_size={this.props.settings.profile_sizes[1]}
                                                 profile_path={actor.profile_path}
+                                                ref={this.actorProfileSize}
                                             />
                                         ))}
                                     </div>
