@@ -8,29 +8,29 @@
     &__wrapper {
         flex: 1;
         padding-top: 12rem;
+        padding-bottom: 6rem;
     }
 
     &__details p {
         line-height: 150%;
     }
 
-    &__title,
     &__genres,
     &__release,
     &__country,
     &__duration,
     &__overview,
     &__cast {
-        margin-bottom: .8rem;
+        margin-bottom: .4rem;
     }
 
     &__title {
         font-family: 'Open Sans', sans-serif;
-        font-size: 4.5rem;
+        font-size: 4rem;
         font-weight: 300;
         text-transform: uppercase;
         color: $green;
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
     }
 
     &__section {
@@ -39,18 +39,21 @@
     }
 
     &__poster-container {
+        text-align: center;
         margin-right: 2rem;
+        margin-bottom: 2rem;
     }
 
+    &__poster,
     &__no-movie-poster {
-        width: 34.2rem;
-        height: 51.3rem;
+        width: 22.8rem;
+        height: 34.2rem;
     }
 
     &__cast-carousel {
         display: flex;
         align-items: center;
-        height: 8rem;
+        height: 5rem;
     }
 
     &__button {
@@ -82,7 +85,7 @@
     }
 
     &__actors {
-        width: 35rem;
+        width: 30rem;
         overflow: hidden;
         margin: 0 .5rem;
     }
@@ -91,6 +94,7 @@
         display: flex;
         flex-wrap: nowrap;
         transition: transform .4s ease;
+        height: 5rem;
     }
 
     &__actor {
@@ -106,8 +110,8 @@
 
     &__actor-profile,
     &__no-actor-profile {
-        width: 6rem;
-        height: 6rem;
+        width: 5rem;
+        height: 5rem;
         border-radius: 100px;
     }
 
@@ -116,7 +120,79 @@
     }
 }
 
+.row--aboutMovie {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: $smallest-tablet) {
+    .aboutMovie__poster,
+    .aboutMovie__no-movie-poster {
+        width: 28.5rem;
+        height: 42.75rem;
+    }
+}
+
+@media (min-width: $small-tablet) {
+    .aboutMovie__wrapper {
+        padding-top: 12rem;
+        padding-bottom: 0;
+    }
+
+    .row--aboutMovie {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .aboutMovie__poster-container {
+        text-align: left;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: $smallest-screen) {
+
+    .aboutMovie__poster,
+    .aboutMovie__no-movie-poster {
+        width: 34.2rem;
+        height: 51.3rem;
+    }
+
+    .aboutMovie__genres,
+    .aboutMovie__release,
+    .aboutMovie__country,
+    .aboutMovie__duration,
+    .aboutMovie__overview,
+    .aboutMovie__cast {
+        margin-bottom: .8rem;
+    }
+
+    .aboutMovie__title {
+        font-size: 4.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
 @media (min-width: $smaller-screen) {
+    .aboutMovie__actor-profile,
+    .aboutMovie__no-actor-profile {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .aboutMovie__actors {
+        width: 35rem;
+    }
+
+    .aboutMovie__cast-carousel,
+    .aboutMovie__track {
+        height: 6rem;
+    }
+}
+
+
+@media (min-width: $small-screen) {
     .aboutMovie__actor-profile,
     .aboutMovie__no-actor-profile {
         width: 8rem;
@@ -125,6 +201,11 @@
 
     .aboutMovie__actors {
         width: 45rem;
+    }
+
+    .aboutMovie__cast-carousel,
+    .aboutMovie__track {
+        height: 8rem;
     }
 }
 

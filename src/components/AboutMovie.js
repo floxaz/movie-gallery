@@ -161,7 +161,7 @@ class AboutMovie extends React.Component {
         const showFilm = (
             <div className="aboutMovie">
                 <div className="aboutMovie__wrapper">
-                    <div className="row row--flex row--flex-wrap">
+                    <div className="row row--aboutMovie">
                         <div className="aboutMovie__poster-container">
                             {this.state.poster_path ?
                                 <img
@@ -179,7 +179,7 @@ class AboutMovie extends React.Component {
                             {this.state.countries && <p className="aboutMovie__country"><span className="aboutMovie__section">Country: </span>{this.makeList(this.state.countries)}</p>}
                             {this.state.runtime && <p className="aboutMovie__duration"><span className="aboutMovie__section">Duration: </span>{this.state.runtime} min</p>}
                             {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
-                            <p className="aboutMovie__cast"><span className="aboutMovie__section">Cast</span></p>
+                            <p className="aboutMovie__cast"><span className="aboutMovie__section">Cast:</span></p>
                             <div className="aboutMovie__cast-carousel">
                                 <button
                                     className="aboutMovie__button aboutMovie__button--left"
