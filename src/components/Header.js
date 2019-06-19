@@ -35,7 +35,7 @@ const Header = ({ chosenGenre, removeChosenGenre, userWentHome, location, histor
         <header className="header">
             <div className="header__box-arrow">
               <svg className="header__arrow">
-                 <use xlinkHref="./images/sprite.svg#icon-arrow-left2"></use>
+                 <use xlinkHref="images/sprite.svg#left"></use>
               </svg>
             </div>
             <div className="row row--flex">
