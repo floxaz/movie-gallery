@@ -7,8 +7,8 @@
 
     &__wrapper {
         flex: 1;
-        padding-top: 12rem;
-        padding-bottom: 6rem;
+        padding-top: 9rem;
+        padding-bottom: 3rem;
     }
 
     &__details p {
@@ -26,7 +26,7 @@
 
     &__title {
         font-family: 'Open Sans', sans-serif;
-        font-size: 4rem;
+        font-size: 3rem;
         font-weight: 300;
         text-transform: uppercase;
         color: $green;
@@ -40,7 +40,6 @@
 
     &__poster-container {
         text-align: center;
-        margin-right: 2rem;
         margin-bottom: 2rem;
     }
 
@@ -53,12 +52,12 @@
     &__cast-carousel {
         display: flex;
         align-items: center;
-        height: 5rem;
+        height: 3rem;
     }
 
     &__button {
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -74,8 +73,8 @@
     }
 
     &__arrow {
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
         fill: #fff;
         transition: all .4s ease;
     }
@@ -85,7 +84,7 @@
     }
 
     &__actors {
-        width: 30rem;
+        width: 20rem;
         overflow: hidden;
         margin: 0 .5rem;
     }
@@ -94,7 +93,7 @@
         display: flex;
         flex-wrap: nowrap;
         transition: transform .4s ease;
-        height: 5rem;
+        height: 3rem;
     }
 
     &__actor {
@@ -110,8 +109,8 @@
 
     &__actor-profile,
     &__no-actor-profile {
-        width: 5rem;
-        height: 5rem;
+        width: 3rem;
+        height: 3rem;
         border-radius: 100px;
     }
 
@@ -125,11 +124,59 @@
     flex-direction: column;
 }
 
+@media (min-width: $phone) {
+    .aboutMovie__title {
+        font-size: 3.5rem;
+    }
+    .aboutMovie__actor-profile,
+    .aboutMovie__no-actor-profile {
+        width: 4rem;
+        height: 4rem;
+    }
+    .aboutMovie__actors {
+        width: 25rem;
+    }
+    .aboutMovie__cast-carousel,
+    .aboutMovie__track {
+        height: 4rem;
+    }
+}
+
 @media (min-width: $smallest-tablet) {
+    .aboutMovie__wrapper {
+        padding-top: 12rem;
+        padding-bottom: 6rem;
+    }
+
+    .aboutMovie__title {
+        font-size: 4rem;
+    }
+
     .aboutMovie__poster,
     .aboutMovie__no-movie-poster {
         width: 28.5rem;
         height: 42.75rem;
+    }
+
+    .aboutMovie__button,
+    .aboutMovie__arrow {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .aboutMovie__actor-profile,
+    .aboutMovie__no-actor-profile {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .aboutMovie__actors {
+        width: 30rem;
+    }
+
+    .aboutMovie__cast-carousel,
+    .aboutMovie__track {
+        height: 5rem;
     }
 }
 
@@ -147,12 +194,12 @@
 
     .aboutMovie__poster-container {
         text-align: left;
+        margin-right: 2rem;
         margin-bottom: 0;
     }
 }
 
 @media (min-width: $smallest-screen) {
-
     .aboutMovie__poster,
     .aboutMovie__no-movie-poster {
         width: 34.2rem;

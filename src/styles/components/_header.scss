@@ -12,7 +12,7 @@
         height: 2rem;
         position: absolute;
         top: 50%;
-        left: .8rem;
+        left: .5rem;
         transform: translateY(-50%);
     }
 
@@ -44,6 +44,12 @@
 
     &__link:hover {
         color: $green;
+    }
+}
+
+@media (min-width: $phone) {
+    .header__box-arrow {
+        left: .8rem;
     }
 }
 

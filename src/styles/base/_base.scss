@@ -27,12 +27,18 @@ body {
 .row {
     margin: 0 auto;
     max-width: 114rem;
-    padding: 0 4rem;
+    padding: 0 3rem;
 }
 
 .row--flex {
     display: flex;
     align-items: center;
+}
+
+@media (min-width: $phone) {
+    .row {
+        padding: 0 4rem;
+    }
 }
 
 @media (min-width: $device) {
