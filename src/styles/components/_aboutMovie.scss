@@ -52,7 +52,7 @@
     &__cast-carousel {
         display: flex;
         align-items: center;
-        height: 3rem;
+        height: 5rem;
     }
 
     &__button {
@@ -91,9 +91,10 @@
 
     &__track {
         display: flex;
+        align-items: center;
         flex-wrap: nowrap;
         transition: transform .4s ease;
-        height: 3rem;
+        height: 5rem;
     }
 
     &__actor {
@@ -112,6 +113,12 @@
         width: 3rem;
         height: 3rem;
         border-radius: 100px;
+        transition: all .4s ease;
+    }
+
+    &__actor-profile:hover,
+    &__no-actor-profile:hover {
+        box-shadow: 0 0 0 .2rem $green;
     }
 
     &__actor-profile {
@@ -133,12 +140,15 @@
         width: 4rem;
         height: 4rem;
     }
-    .aboutMovie__actors {
-        width: 25rem;
+
+    .aboutMovie__actor-profile:hover,
+    .aboutMovie__no-actor-profile:hover {
+        box-shadow: 0 0 0 .3rem $green;
     }
+
     .aboutMovie__cast-carousel,
     .aboutMovie__track {
-        height: 4rem;
+        height: 6rem;
     }
 }
 
@@ -156,6 +166,11 @@
     .aboutMovie__no-movie-poster {
         width: 28.5rem;
         height: 42.75rem;
+    }
+
+    .aboutMovie__actor-profile:hover,
+    .aboutMovie__no-actor-profile:hover {
+        box-shadow: 0 0 0 .4rem $green;
     }
 
     .aboutMovie__button,
@@ -176,7 +191,7 @@
 
     .aboutMovie__cast-carousel,
     .aboutMovie__track {
-        height: 5rem;
+        height: 7rem;
     }
 }
 
@@ -234,7 +249,7 @@
 
     .aboutMovie__cast-carousel,
     .aboutMovie__track {
-        height: 6rem;
+        height: 8rem;
     }
 }
 
@@ -246,13 +261,18 @@
         height: 8rem;
     }
 
+    .aboutMovie__actor-profile:hover,
+    .aboutMovie__no-actor-profile:hover {
+        box-shadow: 0 0 0 .5rem $green;
+    }
+
     .aboutMovie__actors {
         width: 45rem;
     }
 
     .aboutMovie__cast-carousel,
     .aboutMovie__track {
-        height: 8rem;
+        height: 10rem;
     }
 }
 
