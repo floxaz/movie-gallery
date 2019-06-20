@@ -18,7 +18,10 @@ const Footer = () => {
               </div>
               <div className="footer__source">
                  <a href="https://www.themoviedb.org/">
-                 <img src="./images/tmdb.svg" className="footer__tmdb" />
+                 <picture>
+                   <source media="(min-width: 800px)" srcSet="./images/tmdb.svg" className="footer__tmdb" />
+                   <img src="./images/tmdb-small.svg" className="footer__tmdb" className="footer__tmdb" />
+                 </picture>
                  </a>
               </div>
             </div>
