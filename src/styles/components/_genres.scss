@@ -6,6 +6,8 @@
     &__wrapper {
         flex: 1;
         padding-top: 4rem;
+        display: flex;
+        align-items: center;
     }
 
     &__content {
@@ -43,12 +45,17 @@
         padding-top: 7rem;
     }
 
+    .genres__wrapper {
+        padding: 0;
+    }
+
     .genres__content {
         grid-template-columns: repeat(2, 30rem);
         grid-row-gap: 1rem;
         grid-column-gap: 4rem;
         width: 64rem;
         height: 44rem;
+        transform: translateY(-4rem);
     }
     .genres__link {
         font-size: 3rem;

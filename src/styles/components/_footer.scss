@@ -9,7 +9,6 @@
     &__about {
         display: flex;
         justify-content: space-between;
-        //flex-direction: column;
         align-items: center;
         width: 100%;
         height: 100%;
@@ -19,30 +18,11 @@
         display: none;
     }
 
-    &__about > *:not(.bmc-button) {
-        //margin-bottom: 1rem;
-    }
-
-    /*
-    &__emoji {
-        width: 1.2rem;
-        height: 1.2rem;
-        fill: rgba(#fff, .6);
-        margin-right: .5rem;
-    }
-    */
-
     &__author {
         color: rgba(#fff, .6);
         text-align: center;
         font-size: 1rem;
-        //order: 0;
     }
-    /*
-    &__author p:first-child {
-        margin-bottom: .5rem;
-    }
-    */
 
     &__link {
         display: inline-block;
