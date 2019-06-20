@@ -204,6 +204,7 @@ class AboutMovie extends React.Component {
                                                 base_url={this.props.settings.base_url}
                                                 profile_size={this.props.settings.profile_sizes[1]}
                                                 profile_path={actor.profile_path}
+                                                id={actor.id}
                                                 ref={this.actorProfileSize}
                                             />
                                         ))}

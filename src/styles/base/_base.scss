@@ -35,6 +35,11 @@ body {
     align-items: center;
 }
 
+.row--column-flex {
+    display: flex;
+    flex-direction: column;
+}
+
 @media (min-width: $phone) {
     .row {
         padding: 0 4rem;
