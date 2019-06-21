@@ -1,13 +1,16 @@
 import React from 'react';
 import Footer from './Footer';
 import configure from '../actions/configuration';
+import Loader from './Loader';
 import { connect } from 'react-redux';
 
 class AboutActor extends React.Component {
     _isMounted = false;
     dbUrl = 'https://api.themoviedb.org/3/';
     key = '98138b2310ee9081572944e69a78f168';
-    state = {};
+    state = {
+        isLoading: true
+    };
 
     componentDidMount() {
         this._isMounted = true;
@@ -38,6 +41,7 @@ class AboutActor extends React.Component {
         console.log(data);
         if (this._isMounted) {
             this.setState(() => ({
+                isLoading: false,
                 name: data.name,
                 biography: data.biography,
                 birthday: data.birthday,
@@ -48,27 +52,30 @@ class AboutActor extends React.Component {
     };
 
     render() {
+        const content = (
+            <div className="row row--about">
+                <div className="about__poster-container">
+                    {this.state.profile_path ?
+                        <img src={`${this.props.base_url}${this.props.profile_sizes[2]}${this.state.profile_path}`} className="about__poster" />
+                        :
+                        <img src="images/actor.svg" className="about__no-movie-poster" />
+                    }
+                </div>
+                <div className="about__details">
+                    {this.state.name && <h1 className="about__title">{this.state.name}</h1>}
+                    {this.state.birthday && <p className="about__date">{this.state.birthday}{this.state.deathday && ` — ${this.state.deathday}`}</p>}
+                    {this.state.biography ?
+                        <p className="about__overview">{this.state.biography}</p>
+                        :
+                        <p className="about__overview">No information has been found</p>
+                    }
+                </div>
+            </div>
+        );
         return (
             <div className="about">
                 <div className="about__wrapper">
-                    <div className="row row--about">
-                        <div className="about__poster-container">
-                            {this.state.profile_path ?
-                                <img src={`${this.props.base_url}${this.props.profile_sizes[2]}${this.state.profile_path}`} className="about__poster" />
-                                :
-                                <img src="images/actor.svg" className="about__no-movie-poster" />
-                            }
-                        </div>
-                        <div className="about__details">
-                            {this.state.name && <h1 className="about__title">{this.state.name}</h1>}
-                            {this.state.birthday && <p className="about__date">{this.state.birthday}{this.state.deathday && ` — ${this.state.deathday}`}</p>}
-                            {this.state.biography ? 
-                                <p className="about__overview">{this.state.biography}</p>
-                                :
-                                <p className="about__overview">No information has been found</p>
-                            }
-                        </div>
-                    </div>
+                    {this.state.isLoading ? <Loader /> : content}
                 </div>
                 <Footer />
             </div>
