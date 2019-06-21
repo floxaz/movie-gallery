@@ -159,40 +159,40 @@ class AboutMovie extends React.Component {
 
     render() {
         const showFilm = (
-            <div className="aboutMovie">
-                <div className="aboutMovie__wrapper">
-                    <div className="row row--aboutMovie">
-                        <div className="aboutMovie__poster-container">
+            <div className="about">
+                <div className="about__wrapper">
+                    <div className="row row--about">
+                        <div className="about__poster-container">
                             {this.state.poster_path ?
                                 <img
                                     src={`${this.props.settings.base_url}${this.props.settings.poster_sizes[3]}${this.state.poster_path}`}
-                                    className="aboutMovie__poster"
+                                    className="about__poster"
                                 />
                                 :
-                                <img src="images/no-movie.svg" className="aboutMovie__no-movie-poster" />
+                                <img src="images/no-movie.svg" className="about__no-movie-poster" />
                             }
                         </div>
-                        <div className="aboutMovie__details">
-                            {this.state.title && <h1 className="aboutMovie__title">{this.state.title}</h1>}
-                            {this.state.genres && <p className="aboutMovie__genres"><span className="aboutMovie__section">Genres: </span>{this.makeList(this.state.genres)}</p>}
-                            {this.state.release && <p className="aboutMovie__release"><span className="aboutMovie__section">Release: </span>{this.state.release}</p>}
-                            {this.state.countries && <p className="aboutMovie__country"><span className="aboutMovie__section">Country: </span>{this.makeList(this.state.countries)}</p>}
-                            {this.state.runtime && <p className="aboutMovie__duration"><span className="aboutMovie__section">Duration: </span>{this.state.runtime} min</p>}
-                            {this.state.overview && <p className="aboutMovie__overview">{this.state.overview}</p>}
-                            <p className="aboutMovie__cast"><span className="aboutMovie__section">Cast:</span></p>
-                            <div className="aboutMovie__cast-carousel">
+                        <div className="about__details">
+                            {this.state.title && <h1 className="about__title">{this.state.title}</h1>}
+                            {this.state.genres && <p className="about__genres"><span className="about__section">Genres: </span>{this.makeList(this.state.genres)}</p>}
+                            {this.state.release && <p className="about__release"><span className="about__section">Release: </span>{this.state.release}</p>}
+                            {this.state.countries && <p className="about__country"><span className="about__section">Country: </span>{this.makeList(this.state.countries)}</p>}
+                            {this.state.runtime && <p className="about__duration"><span className="about__section">Duration: </span>{this.state.runtime} min</p>}
+                            {this.state.overview && <p className="about__overview">{this.state.overview}</p>}
+                            <p className="about__cast"><span className="about__section">Cast:</span></p>
+                            <div className="about__cast-carousel">
                                 <button
-                                    className="aboutMovie__button aboutMovie__button--left"
+                                    className="about__button about__button--left"
                                     onClick={this.moveActorsLeft}
                                     disabled={this.state.hideLeftButton ? true : false}
                                 >
-                                    <svg className="aboutMovie__arrow">
+                                    <svg className="about__arrow">
                                         <use xlinkHref="images/sprite.svg#left"></use>
                                     </svg>
                                 </button>
-                                <div className="aboutMovie__actors">
+                                <div className="about__actors">
                                     <div
-                                        className="aboutMovie__track"
+                                        className="about__track"
                                         style={{
                                             transform: `translateX(-${this.state.translate}rem)`
                                         }}
@@ -211,11 +211,11 @@ class AboutMovie extends React.Component {
                                     </div>
                                 </div>
                                 <button
-                                    className="aboutMovie__button aboutMovie__button--right"
+                                    className="about__button about__button--right"
                                     onClick={this.moveActorsRight}
                                     disabled={this.state.hideRightButton ? true : false}
                                 >
-                                    <svg className="aboutMovie__arrow">
+                                    <svg className="about__arrow">
                                         <use xlinkHref="images/sprite.svg#right"></use>
                                     </svg>
                                 </button>
