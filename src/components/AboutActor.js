@@ -36,13 +36,15 @@ class AboutActor extends React.Component {
         const response = await fetch(`${this.dbUrl}person/${id}?api_key=${this.key}&language=en-US`);
         const data = await response.json();
         console.log(data);
-        this.setState(() => ({
-            name: data.name,
-            biography: data.biography,
-            birthday: data.birthday,
-            deathday: data.deathday,
-            profile_path: data.profile_path
-        }));
+        if (this._isMounted) {
+            this.setState(() => ({
+                name: data.name,
+                biography: data.biography,
+                birthday: data.birthday,
+                deathday: data.deathday,
+                profile_path: data.profile_path
+            }));
+        }
     };
 
     render() {
