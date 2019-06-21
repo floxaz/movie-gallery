@@ -8,7 +8,7 @@ const Movie = ({ title, img, vote_average, id }) => (
         <img src={img} alt={title} className="movie__poster" />
         <div className="movie__raiting">
           <svg className="movie__star">
-            <use xlinkHref="./images/sprite.svg#icon-star-full"></use>
+            <use xlinkHref="/images/sprite.svg#icon-star-full"></use>
           </svg>
           <p>{vote_average}</p>
         </div>
