@@ -12,12 +12,12 @@ const Footer = () => {
             </a>
               <div className="footer__copyright">
                  <div className="footer__author">
-                  <p>Built and coded by <a href="https://rossyatsura.com/" className="footer__link">Ross Yatsura</a></p>
+                  <p>Built and coded by <a href="https://rossyatsura.com/" target="_blank" className="footer__link">Ross Yatsura</a></p>
                   <p>&copy; Copyright {year}</p>
                  </div>
               </div>
               <div className="footer__source">
-                 <a href="https://www.themoviedb.org/">
+                 <a href="https://www.themoviedb.org/" target="_blank">
                  <picture>
                    <source media="(min-width: 800px)" srcSet="/images/tmdb.svg" className="footer__tmdb" />
                    <img src="/images/tmdb-small.svg" className="footer__tmdb" className="footer__tmdb" />
