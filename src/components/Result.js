@@ -103,7 +103,6 @@ class Result extends React.Component {
         const url = this.props.searchFor ? searchMovieUrl : discoverUrl;
         const response = await fetch(url);
         const result = await response.json();
-        console.log(result);
         if (this._isMounted) {
             if(!this.props.isLargeScreen || this.state.doubleRequestMade) {
                 this.setState(prevState => ({
@@ -163,27 +162,6 @@ class Result extends React.Component {
     }
 
     render() {
-        /*
-        return (
-            <div className="result">
-                <div className="result__container">
-                    {this.state.total_results > 0 ? this.state.results.map(movie => (
-                        <Movie
-                            title={movie.title}
-                            img={movie.poster_path ? `${this.props.settings.base_url}${this.props.settings.poster_sizes[2]}${movie.poster_path}` : '/images/no-poster.jpg'}
-                            vote_average={movie.vote_average}
-                            key={uuidv4()}
-                            id={movie.id}
-                        />
-                    ))
-                    :
-                    <NoResult query={this.props.searchFor} />
-                }
-                </div>
-            </div>
-        )
-        */
-
         const content = (
             <div className="result">
                 <div className="result__container">
