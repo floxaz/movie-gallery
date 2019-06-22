@@ -18,7 +18,6 @@ class Search extends React.Component {
         } 
         if (e.target.search.value !== this.props.query) {
             this.props.cancelQueryFromStorage();
-            console.log('value', e.target.search.value);
             this.props.searchMovie(e.target.search.value);
             localStorage.setItem('search', e.target.search.value);
             if (this.props.location.pathname !== '/') {

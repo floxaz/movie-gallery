@@ -9,6 +9,7 @@ import { gotQueryFromStorage } from '../actions/searchMovie';
 import { largeScreen } from '../actions/request';
 import { noLargeScreen } from '../actions/request';
 import { makeDoubleRequest } from '../actions/request';
+import NoResult from './NoResult';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -58,7 +59,6 @@ class Result extends React.Component {
         }
     
         if (this.props.searchFor !== prevProps.searchFor && !this.props.queryFromStorage) {
-            console.log('kek');
             this.cleanResults();
         }
 
@@ -103,6 +103,7 @@ class Result extends React.Component {
         const url = this.props.searchFor ? searchMovieUrl : discoverUrl;
         const response = await fetch(url);
         const result = await response.json();
+        console.log(result);
         if (this._isMounted) {
             if(!this.props.isLargeScreen || this.state.doubleRequestMade) {
                 this.setState(prevState => ({
@@ -111,7 +112,8 @@ class Result extends React.Component {
                     results: [
                         ...prevState.results,
                         ...result.results
-                    ]
+                    ],
+                    total_results: result.total_results
                 }));
             } else {
                 if(!this.state.doubleRequestMade) {
@@ -121,7 +123,8 @@ class Result extends React.Component {
                         results: [
                             ...prevState.results,
                             ...result.results
-                        ]
+                        ],
+                        total_results: result.total_results
                     }), this.setState(prevState => ({
                         page: prevState.page + 1,
                         doubleRequestMade: true
@@ -160,10 +163,11 @@ class Result extends React.Component {
     }
 
     render() {
+        /*
         return (
             <div className="result">
                 <div className="result__container">
-                    {this.state.results && this.state.results.map(movie => (
+                    {this.state.total_results > 0 ? this.state.results.map(movie => (
                         <Movie
                             title={movie.title}
                             img={movie.poster_path ? `${this.props.settings.base_url}${this.props.settings.poster_sizes[2]}${movie.poster_path}` : '/images/no-poster.jpg'}
@@ -171,10 +175,37 @@ class Result extends React.Component {
                             key={uuidv4()}
                             id={movie.id}
                         />
-                    ))}
+                    ))
+                    :
+                    <NoResult query={this.props.searchFor} />
+                }
                 </div>
             </div>
         )
+        */
+
+        const content = (
+            <div className="result">
+                <div className="result__container">
+                    {this.state.results.map(movie => (
+                        <Movie
+                            title={movie.title}
+                            img={movie.poster_path ? `${this.props.settings.base_url}${this.props.settings.poster_sizes[2]}${movie.poster_path}` : '/images/no-poster.jpg'}
+                            vote_average={movie.vote_average}
+                            key={uuidv4()}
+                            id={movie.id}
+                        />
+                    ))
+                }
+                </div>
+            </div>
+        );
+
+        if(this.state.total_results > 0) {
+            return content;
+        } else {
+            return <NoResult query={this.props.searchFor} />
+        }
     };
 }
 

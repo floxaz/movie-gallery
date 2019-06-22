@@ -38,7 +38,6 @@ class AboutActor extends React.Component {
     getActorData = async id => {
         const response = await fetch(`${this.dbUrl}person/${id}?api_key=${this.key}&language=en-US`);
         const data = await response.json();
-        console.log(data);
         if (this._isMounted) {
             this.setState(() => ({
                 isLoading: false,

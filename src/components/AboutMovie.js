@@ -37,7 +37,6 @@ class AboutMovie extends React.Component {
     getMovieInfo = async id => {
         const result = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.key}&language=en-US`);
         const movieData = await result.json();
-        console.log(movieData);
         if (this._isMounted) {
             // if api call went well
             if (!movieData.status_message) {
@@ -73,7 +72,6 @@ class AboutMovie extends React.Component {
     getCast = async movieID => {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.key}`);
         const credit = await response.json();
-        console.log(credit);
         if (this._isMounted) {
             this.setState(() => ({
                 isLoading: false,
