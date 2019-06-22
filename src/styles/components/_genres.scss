@@ -5,7 +5,8 @@
 
     &__wrapper {
         flex: 1;
-        padding-top: 4rem;
+        padding-top: 10rem;
+        padding-bottom: 5rem;
         display: flex;
         align-items: center;
     }
@@ -43,10 +44,6 @@
 @media (min-width: $phone-device) {
     .genres {
         padding-top: 7rem;
-    }
-
-    .genres__wrapper {
-        padding: 0;
     }
 
     .genres__content {
