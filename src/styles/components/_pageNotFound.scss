@@ -20,7 +20,7 @@
     }
 
     &__img {
-        width: 30rem;
+        width: 20rem;
         height: auto;
         margin-bottom: 2rem;
     }
@@ -58,6 +58,10 @@
         padding: 1rem 0;
         transition: color .4s ease;
     }
+}
 
-    
+@media (min-width: $small) {
+    .notFound__img {
+        width: 30rem;
+    }
 }
