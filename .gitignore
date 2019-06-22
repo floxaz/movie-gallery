@@ -1,3 +1,4 @@
 /node_modules
 /dist/bundles
+/dist/styles
 /src/fixtures.js
