@@ -6,6 +6,7 @@ import { addGenres } from '../actions/genres';
 import { selectGenre } from '../actions/genres';
 import { userLeftHome } from '../actions/home';
 import { removeSearch } from '../actions/searchMovie';
+import Loader from './Loader';
 
 class Genres extends React.Component {
   dbUrl = 'https://api.themoviedb.org/3/';
@@ -43,18 +44,22 @@ class Genres extends React.Component {
   }
 
   render() {
+    const content = (
+      <div className="genres__content">
+        {this.props.genres.map(genre => (
+          <div className="genres__item" key={genre.id} id={genre.id}>
+            <Link className="genres__link" to={`${this.props.match.url}/${genre.name.toLowerCase()}`}>
+              {genre.name}
+            </Link>
+          </div>
+        ))}
+      </div>
+    );
+
     return (
       <div className="genres" onClick={this.handleGenreClick}>
         <div className="genres__wrapper">
-          <div className="genres__content">
-            {this.props.genres.length > 0 ? this.props.genres.map(genre => (
-              <div className="genres__item" key={genre.id} id={genre.id}>
-                <Link className="genres__link" to={`${this.props.match.url}/${genre.name.toLowerCase()}`}>
-                  {genre.name}
-                </Link>
-              </div>
-            )) : 'wait a second...'}
-          </div>
+          {this.props.genres.length > 0 ? content : <Loader />}
         </div>
         <Footer />
       </div>
