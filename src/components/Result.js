@@ -179,7 +179,7 @@ class Result extends React.Component {
             </div>
         );
 
-        if(this.state.total_results > 0) {
+        if(this.state.total_results > 0 || this.props.searchFor === '') {
             return content;
         } else {
             return <NoResult query={this.props.searchFor} />
